@@ -1,6 +1,6 @@
 {{-- resources/views/livewire/dynamic-grid.blade.php --}}
 
-<div x-data="{ sortable: null }" x-init="initGrid()" class="p-4">
+<div x-data="{ sortable: null }" class="p-4">
     {{-- Edit Mode Toggle --}}
     <div class="mb-4">
         <div class="flex gap-1.5 justify-end">
@@ -96,49 +96,38 @@
     </div>
 </div>
 
+
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <script>
-        function initGrid() {
+        let sortableInstance;
+
+        function initializeSortable() {
             const grid = document.querySelector('[x-ref="grid"]');
-            let orderedIds = Array.from(grid.children).map(el => el.dataset.id);
-            let sortableInstance = new Sortable(grid, {
-                animation: 150,
-                handle: '.handle',
-                ghostClass: 'opacity-50',
-                onEnd: (evt) => {
-                    orderedIds = Array.from(grid.children).map(el => el.dataset.id);
-                    Livewire.dispatch('updateLayout', orderedIds);
-
-                }
-            });
-
-            // Initialize or destroy Sortable based on edit mode
-            // Livewire.on('editModeUpdated', (editMode) => {
-            //     console.log(editMode && !sortableInstance);
-            //     if (editMode && !sortableInstance) {
-            //         sortableInstance =
-            //     } else if (!editMode && sortableInstance) {
-            //         sortableInstance.destroy();
-            //         sortableInstance = null;
-            //     }
-            // });
-
-            // Initial setup
-            // Livewire.on('saveLayout', function () {
-            //     const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
-            //     Livewire.dispatch('updateLayout', orderedIds);
-            // })
+            if (grid) {
+                sortableInstance = new Sortable(grid, {
+                    animation: 150,
+                    handle: '.handle',
+                    ghostClass: 'opacity-50',
+                    onEnd: (evt) => {
+                        const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
+                        Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
+                    }
+                });
+            }
         }
 
-        {{--document.addEventListener('livewire:update', function() {--}}
-        {{--    Livewire.dispatch('editModeUpdated', {{$editMode}});--}}
-        {{--});--}}
+        // Initialize on load
+        initializeSortable();
 
-        // Update Sortable when Livewire updates
-        {{--document.addEventListener('livewire:update', function() {--}}
-        {{--    Livewire.dispatch('editModeUpdated', {{$editMode}});--}}
-        {{--});--}}
+        // Reinitialize whenever Livewire re-renders
+        document.addEventListener('livewire:update', function() {
+            if (Livewire.getByName('editMode')) {
+                initializeSortable();
+            } else {
+                sortableInstance?.destroy();
+            }
+        });
     </script>
 
 @endpush

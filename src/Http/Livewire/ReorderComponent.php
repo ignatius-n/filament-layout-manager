@@ -5,11 +5,13 @@ namespace Asosick\ReorderWidgets\Http\Livewire;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
-class ReorderComponent extends Component
-{
-    public string $selectedComponent = 'list-events';
+class ReorderComponent extends Component {
 
+    public string $selectedComponent = 'list-events';
     public int $columns = 3;
+
+    protected $listeners = ['updateLayout'];
+
 
     public array $allowedComponents = [
 
@@ -73,7 +75,6 @@ class ReorderComponent extends Component
 
     public function updateLayout($orderedIds)
     {
-        dd('a');
         $this->components = collect($orderedIds)
             ->mapWithKeys(fn ($id, $index) => [
                 $id => [
