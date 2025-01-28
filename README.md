@@ -8,8 +8,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/asosick/reorder-widgets.svg?style=flat-square)](https://packagist.org/packages/asosick/reorder-widgets)
 
 
-Allows users to customize and save their own dashboards composed of livewire components.
-
+### Allows users to customize and save their own dashboards composed of livewire components.
 ![demo.gif](demo.gif)
 ## Installation
 
