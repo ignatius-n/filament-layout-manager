@@ -19,7 +19,7 @@
                     icon="heroicon-m-plus"
                     wire:click="addComponent"
                     class="px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-600">
-                    Add Table
+                    Add
                 </x-filament::button>
                 <x-filament::button
                     outlined
@@ -49,17 +49,12 @@
     </div>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-{{$columns}} gap-4" x-ref="grid">
+    <div class="grid grid-cols-1 md:grid-cols-{{$columns}} grid-rows-6 gap-4" x-ref="grid">
         @foreach($components as $id => $component)
-            <div
-                wire:key="{{ $id }}"
-                data-id="{{ $id }}"
-                class="relative group transition-all"
-                style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}"
-{{--                :class="{--}}
-{{--                    'rounded-lg border-2 border-blue-200': @entangle('editMode')--}}
-{{--                }"--}}
-                >
+            <div wire:key="grid-item-{{ $id }}"
+                 data-id="{{ $id }}"
+                 class="relative group transition-all h-full"
+                 style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 {{-- Edit Mode Controls --}}
                 @if($editMode)
@@ -89,19 +84,18 @@
                         </div>
                     </div>
                 @endif
+
                 @if(is_subclass_of($component, \Filament\Widgets\Widget::class))
                     <x-filament-widgets::widgets
-                        :data="
-                            [
-                                ...(property_exists($this, 'filters') ? ['filters' => $this->filters] : []),
-                                ...$this->getWidgetData(),
-                            ]
-                        "
+                        :data="[
+                        ...(property_exists($this, 'filters') ? ['filters' => $this->filters] : []),
+                        ...$this->getWidgetData(),
+                    ]"
                         :widgets="$this->getVisibleWidgets()"
-{{--                        :wire:key="$id"--}}
+                        wire:key="widget-{{ $id }}"
                     />
                 @else
-                    @livewire($component['type'], key($id))
+                    @livewire($component['type'], key("component-{$id}"))
                 @endif
 
             </div>

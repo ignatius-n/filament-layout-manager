@@ -3,6 +3,7 @@
 namespace Asosick\ReorderWidgets\Http\Livewire;
 
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Livewire;
 
@@ -84,13 +85,19 @@ class ReorderComponent extends Component
 
     public function updateLayout($orderedIds)
     {
+        if (!isset($orderedIds) || !is_array($orderedIds)) {
+            return;
+        }
+
         $sortedData = [];
         foreach ($orderedIds as $key) {
             if (isset($this->components[$key])) {
                 $sortedData[$key] = $this->components[$key];
             }
         }
-        $this->components = $sortedData;
+        if (count($sortedData) === count($this->components)) {
+            $this->components = $sortedData;
+        }
     }
 
     public function saveLayout()
