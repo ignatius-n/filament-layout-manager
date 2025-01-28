@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ReorderComponent extends Component {
 
-    public string $selectedComponent = 'list-events';
+    public ?string $selectedComponent = null;
     public int $columns = 3;
 
     protected $listeners = ['updateLayout'];
@@ -23,8 +23,12 @@ class ReorderComponent extends Component {
 
     public $editMode = false;
 
-    public function mount()
+    public $settings = [];
+
+    public function mount($settings)
     {
+        $this->settings = $settings;
+        $this->selectedComponent = $settings['components'][0];
         // Load initial state from session/database
         $this->components = session('grid_layout', []);
     }
