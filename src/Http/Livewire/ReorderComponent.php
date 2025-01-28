@@ -3,7 +3,6 @@
 namespace Asosick\ReorderWidgets\Http\Livewire;
 
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\Livewire;
 
@@ -34,9 +33,9 @@ class ReorderComponent extends Component
 
         // Load initial state from session/database
         $this->components = session('grid_layout', []);
-//        foreach($settings['selectOptions'] as $key => $value){
-//            Livewire::component($value, $key);
-//        }
+        //        foreach($settings['selectOptions'] as $key => $value){
+        //            Livewire::component($value, $key);
+        //        }
     }
 
     public function toggleEditMode()
@@ -72,7 +71,7 @@ class ReorderComponent extends Component
     {
         $this->components[uniqid()] = [
             'cols' => 1, // 1 = half width, 2 = full width
-//            'order' => count($this->components),
+            //            'order' => count($this->components),
             'type' => $this->selectedComponent,
             'event_id' => count($this->components) + 1,
         ];
@@ -85,7 +84,7 @@ class ReorderComponent extends Component
 
     public function updateLayout($orderedIds)
     {
-        if (!isset($orderedIds) || !is_array($orderedIds)) {
+        if (! isset($orderedIds) || ! is_array($orderedIds)) {
             return;
         }
 
