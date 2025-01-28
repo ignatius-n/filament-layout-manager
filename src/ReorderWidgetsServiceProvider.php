@@ -4,7 +4,7 @@ namespace Asosick\ReorderWidgets;
 
 use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
 use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
-use Filament\Support\Assets\AlpineComponent;
+use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -12,6 +12,7 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -62,6 +63,8 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        Livewire::component('reorder-component', ReorderComponent::class);
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
