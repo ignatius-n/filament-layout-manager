@@ -11,5 +11,5 @@ return [
     'settings' => [
         'grid_columns' => 2,
         'grid_rows' => 2,
-    ]
+    ],
 ];

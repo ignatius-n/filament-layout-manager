@@ -8,15 +8,21 @@ use Livewire\Component;
 abstract class ReorderPage extends Page
 {
     protected static string $view = 'reorder-widgets::reorder-page';
+
     protected array $settings = [];
 
     protected array $components = [];
+
     protected int $gridColumns;
+
     protected int $gridRows;
+
     protected bool $allowMultipleComponents = true;
+
     private bool $showEditButton = true;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->gridColumns = config('reorder-widgets.settings.grid_columns');
         $this->gridRows = config('reorder-widgets.settings.grid_rows');
     }
@@ -32,7 +38,6 @@ abstract class ReorderPage extends Page
     /**
      * To override, provide an associative array of key->values for the drop down
      * return [classpath (selection key) => select_option_text, ... ]
-     * @return array
      */
     protected function getComponentSelectOptions(): array
     {
@@ -41,7 +46,8 @@ abstract class ReorderPage extends Page
             ->toArray();
     }
 
-    protected function allowMultipleComponents(): bool {
+    protected function allowMultipleComponents(): bool
+    {
         return $this->allowMultipleComponents;
     }
 
@@ -60,23 +66,23 @@ abstract class ReorderPage extends Page
         return $this->showEditButton;
     }
 
-//    protected function getHeaderActions(): array
-//    {
-//        return [
-//
-//        ];
-//    }
+    //    protected function getHeaderActions(): array
+    //    {
+    //        return [
+    //
+    //        ];
+    //    }
 
     protected function getViewData(): array
     {
-         return [
-             'settings' => [
-                    'components' => $this->getComponents(),
-                    'selectOptions' => $this->getComponentSelectOptions(),
-                    'gridColumns' => $this->getGridColumns(),
-                    'gridRows' => $this->getGridRows(),
-                    'showEditButton' => $this->showEditButton(),
-            ]
-         ];
+        return [
+            'settings' => [
+                'components' => $this->getComponents(),
+                'selectOptions' => $this->getComponentSelectOptions(),
+                'gridColumns' => $this->getGridColumns(),
+                'gridRows' => $this->getGridRows(),
+                'showEditButton' => $this->showEditButton(),
+            ],
+        ];
     }
 }
