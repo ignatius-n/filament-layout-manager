@@ -3,8 +3,8 @@
 namespace Asosick\ReorderWidgets;
 
 use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
-use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
 use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;

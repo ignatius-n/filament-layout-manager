@@ -5,27 +5,28 @@ namespace Asosick\ReorderWidgets;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
-class Reorder extends Component {
-
+class Reorder extends Component
+{
     public string $selectedComponent = 'list-events';
+
     public int $columns = 3;
 
-
     public array $allowedComponents = [
-//        ListCompanies::class => [
-//            'view'=> 'list-events',
-//            'title' => 'List Events',
-//        ],
-//        ListChannels::class => [
-//            'view'=> 'list-channels',
-//            'title' => 'List Channels',
-//        ],
+        //        ListCompanies::class => [
+        //            'view'=> 'list-events',
+        //            'title' => 'List Events',
+        //        ],
+        //        ListChannels::class => [
+        //            'view'=> 'list-channels',
+        //            'title' => 'List Channels',
+        //        ],
     ];
 
     public ?string $activeTab = null;
-    public $components = [];
-    public $editMode = false;
 
+    public $components = [];
+
+    public $editMode = false;
 
     public function mount()
     {
@@ -33,27 +34,29 @@ class Reorder extends Component {
         $this->components = session('grid_layout', []);
     }
 
-
     public function toggleEditMode()
     {
-        $this->editMode = !$this->editMode;
+        $this->editMode = ! $this->editMode;
     }
 
-    public function toggleSize($id){
+    public function toggleSize($id)
+    {
         if ($this->editMode) {
             $cols = $this->components[$id]['cols'];
             $this->components[$id]['cols'] = $cols === $this->columns ? 1 : $this->columns;
         }
     }
 
-    public function increaseSize($id){
+    public function increaseSize($id)
+    {
         if ($this->editMode) {
             $cols = $this->components[$id]['cols'];
             $this->components[$id]['cols'] = min($this->columns, $cols + 1);
         }
     }
 
-    public function decreaseSize($id){
+    public function decreaseSize($id)
+    {
         if ($this->editMode) {
             $cols = $this->components[$id]['cols'];
             $this->components[$id]['cols'] = max(1, $cols - 1);
@@ -66,7 +69,7 @@ class Reorder extends Component {
             'cols' => 1, // 1 = half width, 2 = full width
             'order' => count($this->components),
             'type' => $this->selectedComponent,
-            'event_id' => count($this->components) + 1
+            'event_id' => count($this->components) + 1,
         ];
     }
 
@@ -79,11 +82,11 @@ class Reorder extends Component {
     {
         dd('a');
         $this->components = collect($orderedIds)
-            ->mapWithKeys(fn($id, $index) => [
+            ->mapWithKeys(fn ($id, $index) => [
                 $id => [
                     ...$this->components[$id],
                     'order' => $index,
-                ]
+                ],
             ])
             ->sortBy(fn ($item) => $item['order'])
             ->values()
@@ -99,6 +102,7 @@ class Reorder extends Component {
             ->send();
         // Save to database here if needed
     }
+
     public function render()
     {
         return view('reorder-widgets::reorder');
