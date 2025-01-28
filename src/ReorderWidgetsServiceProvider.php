@@ -2,6 +2,8 @@
 
 namespace Asosick\ReorderWidgets;
 
+use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
+use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -13,8 +15,6 @@ use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
-use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
 
 class ReorderWidgetsServiceProvider extends PackageServiceProvider
 {
