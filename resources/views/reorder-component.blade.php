@@ -8,8 +8,8 @@
             @if($editMode)
                 <x-filament::input.wrapper>
                     <x-filament::input.select wire:model="selectedComponent">
-                        @foreach($allowedComponents as $_ => $component)
-                            <option value="{{$component['view']}}">{{$component['title']}}</option>
+                        @foreach($settings['selectOptions'] as $key => $value)
+                            <option value="{{$key}}">{{$value}}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
@@ -19,7 +19,7 @@
                     icon="heroicon-m-plus"
                     wire:click="addComponent"
                     class="px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-600">
-                    Add Table
+                    Add
                 </x-filament::button>
                 <x-filament::button
                     outlined
@@ -31,32 +31,30 @@
                 </x-filament::button>
             @endif
 
-            <x-filament::button
-                outlined
-                :icon="!$editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open'"
-                wire:click="toggleEditMode"
-                class="px-4 py-2 bg-gray-500 text-black rounded hover:bg-gray-600"
-            >
-                @if($editMode)
-                    Lock Layout
-                @else
-                    Edit Layout
-                @endif
-            </x-filament::button>
+            @if($settings['showEditButton'])
+                <x-filament::button
+                    outlined
+                    :icon="!$editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open'"
+                    wire:click="toggleEditMode"
+                    class="px-4 py-2 bg-gray-500 text-black rounded hover:bg-gray-600"
+                >
+                    @if($editMode)
+                        Lock Layout
+                    @else
+                        Edit Layout
+                    @endif
+                </x-filament::button>
+            @endif
         </div>
     </div>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-{{$columns}} gap-4" x-ref="grid">
+    <div class="grid grid-cols-1 md:grid-cols-{{$columns}} grid-rows-6 gap-4" x-ref="grid">
         @foreach($components as $id => $component)
-            <div
-                wire:key="{{ $id }}"
-                data-id="{{ $id }}"
-                class="relative group bg-white shadow-sm transition-all"
-                style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}"
-                :class="{
-                    'rounded-lg border-2 border-blue-200': @entangle('editMode')
-                }">
+            <div wire:key="grid-item-{{ $id }}"
+                 data-id="{{ $id }}"
+                 class="relative group transition-all h-full"
+                 style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 {{-- Edit Mode Controls --}}
                 @if($editMode)
@@ -87,9 +85,18 @@
                     </div>
                 @endif
 
-                {{-- Component Content --}}
-                @livewire($component['type'], ['id' => $component['event_id']], key($id))
-
+                @if(is_subclass_of($component, \Filament\Widgets\Widget::class))
+                    <x-filament-widgets::widgets
+                        :data="[
+                        ...(property_exists($this, 'filters') ? ['filters' => $this->filters] : []),
+                        ...$this->getWidgetData(),
+                    ]"
+                        :widgets="$this->getVisibleWidgets()"
+                        wire:key="widget-{{ $id }}"
+                    />
+                @else
+                    @livewire($component['type'], key("component-{$id}"))
+                @endif
 
             </div>
         @endforeach

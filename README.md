@@ -1,4 +1,6 @@
-# Package to allow uers to organize widgets on their page themselves
+# Not published - Under active development.
+
+# FilamentPHP User Customizable Page
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/reorder-widgets.svg?style=flat-square)](https://packagist.org/packages/asosick/reorder-widgets)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/reorder-widgets/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/reorder-widgets/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -6,22 +8,15 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/asosick/reorder-widgets.svg?style=flat-square)](https://packagist.org/packages/asosick/reorder-widgets)
 
 
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
+### Allows users to customize and save their own dashboards composed of livewire components.
+![demo.gif](demo.gif)
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require asosick/reorder-widgets
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="reorder-widgets-migrations"
-php artisan migrate
+#COMING SOON
+#composer require asosick/reorder-widgets
 ```
 
 You can publish the config file with:
@@ -36,25 +31,37 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="reorder-widgets-views"
 ```
 
-This is the contents of the published config file:
+[//]: # (This is the contents of the published config file:)
 
-```php
-return [
-];
-```
+[//]: # ()
+[//]: # (```php)
 
-## Usage
+[//]: # (return [)
 
-```php
-$reorderWidgets = new Asosick\ReorderWidgets();
-echo $reorderWidgets->echoPhrase('Hello, Asosick!');
-```
+[//]: # (];)
 
-## Testing
+[//]: # (```)
+[//]: # ()
+[//]: # (## Usage)
 
-```bash
-composer test
-```
+[//]: # ()
+[//]: # (```php)
+
+[//]: # ($reorderWidgets = new Asosick\ReorderWidgets&#40;&#41;;)
+
+[//]: # (echo $reorderWidgets->echoPhrase&#40;'Hello, Asosick!'&#41;;)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (## Testing)
+
+[//]: # ()
+[//]: # (```bash)
+
+[//]: # (composer test)
+
+[//]: # (```)
 
 ## Changelog
 
