@@ -9,7 +9,7 @@
                 <x-filament::input.wrapper>
                     <x-filament::input.select wire:model="selectedComponent">
                         @foreach($settings['selectOptions'] as $key => $value)
-                            <option value="{{$value}}">{{$value}}</option>
+                            <option value="{{$key}}">{{$value}}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
@@ -54,11 +54,12 @@
             <div
                 wire:key="{{ $id }}"
                 data-id="{{ $id }}"
-                class="relative group bg-white shadow-sm transition-all"
+                class="relative group transition-all"
                 style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}"
-                :class="{
-                    'rounded-lg border-2 border-blue-200': @entangle('editMode')
-                }">
+{{--                :class="{--}}
+{{--                    'rounded-lg border-2 border-blue-200': @entangle('editMode')--}}
+{{--                }"--}}
+                >
 
                 {{-- Edit Mode Controls --}}
                 @if($editMode)
@@ -88,7 +89,6 @@
                         </div>
                     </div>
                 @endif
-
                 @if(is_subclass_of($component, \Filament\Widgets\Widget::class))
                     <x-filament-widgets::widgets
                         :data="
@@ -98,7 +98,7 @@
                             ]
                         "
                         :widgets="$this->getVisibleWidgets()"
-                        key="$id"
+{{--                        :wire:key="$id"--}}
                     />
                 @else
                     @livewire($component['type'], key($id))

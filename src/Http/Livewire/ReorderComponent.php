@@ -4,6 +4,7 @@ namespace Asosick\ReorderWidgets\Http\Livewire;
 
 use Filament\Notifications\Notification;
 use Livewire\Component;
+use Livewire\Livewire;
 
 class ReorderComponent extends Component
 {
@@ -29,8 +30,12 @@ class ReorderComponent extends Component
     {
         $this->settings = $settings;
         $this->selectedComponent = $settings['components'][0];
+
         // Load initial state from session/database
         $this->components = session('grid_layout', []);
+//        foreach($settings['selectOptions'] as $key => $value){
+//            Livewire::component($value, $key);
+//        }
     }
 
     public function toggleEditMode()
@@ -66,7 +71,7 @@ class ReorderComponent extends Component
     {
         $this->components[uniqid()] = [
             'cols' => 1, // 1 = half width, 2 = full width
-            'order' => count($this->components),
+//            'order' => count($this->components),
             'type' => $this->selectedComponent,
             'event_id' => count($this->components) + 1,
         ];
@@ -79,16 +84,13 @@ class ReorderComponent extends Component
 
     public function updateLayout($orderedIds)
     {
-        $this->components = collect($orderedIds)
-            ->mapWithKeys(fn ($id, $index) => [
-                $id => [
-                    ...$this->components[$id],
-                    'order' => $index,
-                ],
-            ])
-            ->sortBy(fn ($item) => $item['order'])
-            ->values()
-            ->toArray();
+        $sortedData = [];
+        foreach ($orderedIds as $key) {
+            if (isset($this->components[$key])) {
+                $sortedData[$key] = $this->components[$key];
+            }
+        }
+        $this->components = $sortedData;
     }
 
     public function saveLayout()

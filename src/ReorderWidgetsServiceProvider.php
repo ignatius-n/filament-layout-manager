@@ -65,6 +65,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
     {
         Livewire::component('reorder-component', ReorderComponent::class);
 
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
