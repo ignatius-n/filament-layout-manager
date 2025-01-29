@@ -70,8 +70,7 @@ class ReorderComponent extends Component
     public function addComponent()
     {
         $this->components[uniqid()] = [
-            'cols' => 1, // 1 = half width, 2 = full width
-            //            'order' => count($this->components),
+            'cols' => 1,
             'type' => $this->selectedComponent,
             'event_id' => count($this->components) + 1,
         ];

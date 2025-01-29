@@ -100,7 +100,7 @@
                         wire:key="widget-{{ $id }}"
                     />
                 @else
-                    @livewire($component['type'], key("component-{$id}"))
+                    <livewire:dynamic-component :is="$component['type']" :key="$id" />
                 @endif
 
             </div>
@@ -114,6 +114,21 @@
     <script>
         let sortableInstance;
 
+        /*
+            Credit to this library for showing me how to get an end node to prevent wire:key issues with my nested components when I move them to the end.
+            https://github.com/wotzebra/livewire-sortablejs/blob/master/src/index.js#L6
+         */
+        const moveEndMorphMarker = (el) => {
+            const endMorphMarker = Array.from(el.childNodes).filter((childNode) => {
+                return childNode.nodeType === 8 && ['[if ENDBLOCK]><![endif]', '__ENDBLOCK__'].includes(childNode.nodeValue?.trim());
+            })[0];
+
+            if (endMorphMarker) {
+                el.appendChild(endMorphMarker);
+            }
+        }
+
+
         function initializeSortable() {
             const grid = document.querySelector('[x-ref="grid"]');
             if (grid) {
@@ -123,6 +138,7 @@
                     ghostClass: 'opacity-50',
                     onEnd: (evt) => {
                         const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
+                        moveEndMorphMarker(grid);
                         Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
                     }
                 });
