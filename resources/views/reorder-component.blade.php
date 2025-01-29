@@ -52,7 +52,7 @@
     </div>
 
 
-    <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
+    <div class="grid md:grid-cols-{{$columns/2}}  gap-4 !important" x-ref="grid">
         @foreach($components as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
