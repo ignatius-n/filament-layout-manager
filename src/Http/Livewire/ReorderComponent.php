@@ -10,7 +10,7 @@ class ReorderComponent extends Component
 {
     public ?string $selectedComponent = null;
 
-    public int $columns = 3;
+    public int $columns = 4;
 
     protected $listeners = ['updateLayout'];
 

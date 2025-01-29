@@ -52,41 +52,40 @@
     </div>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-{{$columns}} grid-rows-6 gap-4" x-ref="grid">
+    <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
         @foreach($components as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
-                 class="relative group transition-all h-full"
+                 class="col-span-{{ $component['cols'] }}"
+{{--                 class="relative group transition-all h-full"--}}
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 {{-- Edit Mode Controls --}}
                 @if($editMode)
                     <div class="opacity-75 hover:opacity-100 transition-opacity flex gap-1 p-2">
-                        <button
-                            wire:click="removeComponent('{{ $id }}')"
-                            class="text-red-500 hover:text-red-700 bg-black rounded-full p-1 shadow">
+                        <button wire:click="removeComponent('{{ $id }}')">
                             ✕
                         </button>
                         @if($components > 1)
                             <button
                                 wire:click="toggleSize('{{ $id }}')"
-                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                class="p-1 text-4sm">
                                 ↔
                             </button>
                             <button
                                 wire:click="increaseSize('{{ $id }}')"
-                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                class="p-1 text-4lg">
                                 +
                             </button>
                             <button
                                 wire:click="decreaseSize('{{ $id }}')"
-                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                class="p-1 text-4sm">
                                 -
                             </button>
-                            <div class="handle cursor-move text-gray-500 bg-black rounded-full p-1 shadow">
-                                ⤵
-                            </div>
                         @endif
+                        <div class="handle cursor-move  bg-black rounded-full p-1 shadow text-4xl">
+                            ⤯
+                        </div>
                     </div>
                 @endif
 
