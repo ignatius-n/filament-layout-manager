@@ -15,8 +15,8 @@ return [
     ],
     'buttons' => [
         'save' => [
-            'inline'=> 'outlined color="danger" icon="heroicon-m-bookmark-square"',
-            'text' => 'Save Layout'
-        ]
-    ]
+            'inline' => 'outlined color="danger" icon="heroicon-m-bookmark-square"',
+            'text' => 'Save Layout',
+        ],
+    ],
 ];

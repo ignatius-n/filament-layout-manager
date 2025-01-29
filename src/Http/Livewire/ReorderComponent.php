@@ -11,7 +11,7 @@ use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 
-class ReorderComponent extends Component implements HasForms, HasActions
+class ReorderComponent extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -123,8 +123,8 @@ class ReorderComponent extends Component implements HasForms, HasActions
     {
         return Action::make('edit')
             ->outlined()
-            ->icon(fn() => !$this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
-            ->label(fn() => !$this->editMode ? 'Unlock Layout' : 'Lock Layout')
+            ->icon(fn () => ! $this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
+            ->label(fn () => ! $this->editMode ? 'Unlock Layout' : 'Lock Layout')
             ->action(fn () => $this->toggleEditMode());
     }
 
