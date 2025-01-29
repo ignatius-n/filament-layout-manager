@@ -15,7 +15,6 @@ abstract class ReorderPage extends Page
 
     protected int $gridColumns;
 
-
     private bool $showEditButton;
 
     public function __construct()
@@ -43,18 +42,15 @@ abstract class ReorderPage extends Page
             ->toArray();
     }
 
-
     protected function getGridColumns(): int
     {
         return $this->gridColumns;
     }
 
-
     protected function showEditButton(): bool
     {
         return $this->showEditButton;
     }
-
 
     protected function getViewData(): array
     {

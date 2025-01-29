@@ -5,7 +5,6 @@ namespace Asosick\ReorderWidgets\Http\Livewire;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Livewire\Component;
-use Livewire\Livewire;
 
 class ReorderComponent extends Component
 {
@@ -29,18 +28,20 @@ class ReorderComponent extends Component
         $this->ensureMaxColumnsRespected();
     }
 
-    private function ensureMaxColumnsRespected() {
-        if(!$this->components){
+    private function ensureMaxColumnsRespected()
+    {
+        if (! $this->components) {
             return;
         }
         foreach ($this->components as $key => $component) {
-            if($component['cols'] > $this->columns){
+            if ($component['cols'] > $this->columns) {
                 $this->components[$key]['cols'] = $this->columns;
             }
         }
     }
 
-    protected function load(){
+    protected function load()
+    {
         $this->components = session('grid_layout', []);
     }
 
