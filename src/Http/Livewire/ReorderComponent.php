@@ -141,6 +141,7 @@ class ReorderComponent extends Component implements HasForms, HasActions
     {
         return Action::make('save')
             ->outlined()
+            ->color('danger')
             ->icon('heroicon-m-bookmark-square')
             ->action(fn () => $this->saveLayout());
     }
