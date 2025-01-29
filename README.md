@@ -31,6 +31,135 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="reorder-widgets-views"
 ```
 
+## Usage
+Reorderable Dashboards require a new custom page. You can create one as so
+
+```bash
+php artisan make:filament-page TestPage
+#Replace TestPage with your new page's name
+```
+
+You custom page needs to extend from `use Asosick\ReorderWidgets\Pages\ReorderPage;`
+```php
+use Asosick\ReorderWidgets\Pages\ReorderPage;
+class TestPage extends ReorderPage
+{}
+```
+
+You can now define the livewire components you'd like users to be able to add to this new page (this includes your widgets, custom components, or even your ListRecord views though that is not recommended)
+```php
+class TestPage extends ReorderPage
+{
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+
+    protected ?string $maxContentWidth = MaxWidth::class;
+
+    protected function getComponents(): array
+    {
+        // Replace with your chosen components
+        return [
+            CompaniesWidget::class,
+            BlogPostsChart::class,
+            StatsOverview::class,
+            ArticlePostsChart::class,
+        ];
+    }
+}
+```
+You can now visit your page, unlock your layout, and begin reorganizing.
+
+## Customization
+Your livewire components are wrapped inside a livewire component with a custom blade file to enable user manipulation. 
+
+Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
+component responsible for organization.
+
+Therefore, customzation occurs not on the page class but in this class: `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
+
+In order to customize say the colour of one of the header buttons, first:
+
+#### 1)
+```bash
+php artisan vendor:publish --tag="reorder-widgets-config"
+```
+#### 2)
+Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` and extend that class off of `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
+
+```php
+<?php
+
+namespace App\Livewire;
+
+use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+use Filament\Actions\Action;
+
+class CustomReorderComponent extends ReorderComponent
+{
+
+    /* Example of changing the colour of the add button to red */
+    public function addAction(): Action
+    {
+        return parent::addAction()->color('danger');
+    }
+}
+```
+#### 3)
+Update your configuration to point to your new custom class.
+```php
+// config for Asosick/ReorderWidgets
+return [
+    'ReorderComponent' => \App\Livewire\CustomReorderComponent::class,
+    // Other settings 
+    // ...
+];
+```
+
+I recommend reading the code in ReorderComponent when digging into customization. You'll want to ensure you're still calling the require methods on actions you edit.
+
+
+
+### Saving Layouts to a Database
+Layouts by default are saved to a user's session, hence they do not persist beyond the user's current session.
+
+In order to save your user's layout to a database, you'll need to
+1. Override the ReorderComponent as shown above
+2. Implement a new `save()` function to persist the layout
+3. Implement a new `load()` function to load the layout
+
+**Where a user's layout is saved in your database and how that is managed is your concern.**
+
+There needs to be somewhere to store this information. Perhaps a json column on your user's database called `settings` for example. The creation and management of such is your concern.
+
+#### Example
+Assuming a settings json column on your user's model.
+```php
+<?php
+
+namespace App\Livewire;
+
+use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+
+class CustomReorderComponent extends ReorderComponent
+{
+    public function save(): void
+    {
+        $user = auth()->user();
+        $user->settings = [
+            'components' => $this->components
+        ];
+        $user->save();
+    }
+
+    public function load(): void
+    {
+        $user = auth()->user();
+        $this->components = $user->settings['components'] ?? [];
+    }
+}
+```
+
+
+
 [//]: # (This is the contents of the published config file:)
 
 [//]: # ()

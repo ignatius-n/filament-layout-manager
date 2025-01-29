@@ -11,6 +11,6 @@ return [
         'components' => [],
         'selectOptions' => [],
         'gridColumns' => 2,
-        'showEditButton' => 2,
+        'showEditButton' => true,
     ],
 ];
