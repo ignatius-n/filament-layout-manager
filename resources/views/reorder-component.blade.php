@@ -2,7 +2,10 @@
 
 <div x-data="{ sortable: null }" class="p-4">
     {{-- Edit Mode Toggle --}}
-    <div class="mb-4">
+    <div class="mb-4 flex justify-between w-full">
+        <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
+            Title
+        </h1>
         <div class="flex gap-1.5 justify-end">
             {{-- Add/Save Buttons (only in edit mode) --}}
             @if($editMode)
@@ -64,24 +67,26 @@
                             class="text-red-500 hover:text-red-700 bg-black rounded-full p-1 shadow">
                             ✕
                         </button>
-                        <button
-                            wire:click="toggleSize('{{ $id }}')"
-                            class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
-                            ↔
-                        </button>
-                        <button
-                            wire:click="increaseSize('{{ $id }}')"
-                            class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
-                            +
-                        </button>
-                        <button
-                            wire:click="decreaseSize('{{ $id }}')"
-                            class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
-                            -
-                        </button>
-                        <div class="handle cursor-move text-gray-500 bg-black rounded-full p-1 shadow">
-                            ⤵
-                        </div>
+                        @if($components > 1)
+                            <button
+                                wire:click="toggleSize('{{ $id }}')"
+                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                ↔
+                            </button>
+                            <button
+                                wire:click="increaseSize('{{ $id }}')"
+                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                +
+                            </button>
+                            <button
+                                wire:click="decreaseSize('{{ $id }}')"
+                                class="text-blue-500 hover:text-blue-700 bg-black  rounded-full p-1 shadow">
+                                -
+                            </button>
+                            <div class="handle cursor-move text-gray-500 bg-black rounded-full p-1 shadow">
+                                ⤵
+                            </div>
+                        @endif
                     </div>
                 @endif
 
