@@ -28,7 +28,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public array $settings = [];
 
-    public function mount(?array $settings)
+    public function mount(?array $settings = [])
     {
         $this->settings = $settings ?? config('reorder-widgets.default_settings');
         $this->selectedComponent = Arr::get($settings, 'components.0', null);

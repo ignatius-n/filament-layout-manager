@@ -13,10 +13,4 @@ return [
         'gridColumns' => 2,
         'showEditButton' => 2,
     ],
-    'buttons' => [
-        'save' => [
-            'inline' => 'outlined color="danger" icon="heroicon-m-bookmark-square"',
-            'text' => 'Save Layout',
-        ],
-    ],
 ];

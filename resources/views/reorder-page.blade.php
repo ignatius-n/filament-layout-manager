@@ -5,5 +5,5 @@
 {{--    <livewire:reorder-component :settings="$settings"/>--}}
 {{--</x-filament-panels::page>--}}
 <div>
-    <livewire:reorder-component :settings="$settings"/>
+    <livewire:reorder-component :settings="$settings ?? []"/>
 </div>
