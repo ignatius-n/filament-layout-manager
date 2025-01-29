@@ -63,7 +63,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('reorder-component', ReorderComponent::class);
+        Livewire::component('reorder-component', config('reorder-widgets.ReorderComponent'));
 
         // Asset Registration
         FilamentAsset::register(

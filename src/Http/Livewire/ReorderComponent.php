@@ -3,6 +3,7 @@
 namespace Asosick\ReorderWidgets\Http\Livewire;
 
 use Filament\Notifications\Notification;
+use Illuminate\Support\Arr;
 use Livewire\Component;
 use Livewire\Livewire;
 
@@ -14,28 +15,33 @@ class ReorderComponent extends Component
 
     protected $listeners = ['updateLayout'];
 
-    public array $allowedComponents = [
-
-    ];
-
-    public ?string $activeTab = null;
-
     public $components = [];
 
-    public $editMode = false;
+    public bool $editMode = false;
 
-    public $settings = [];
+    public array $settings = [];
 
-    public function mount($settings)
+    public function mount(?array $settings)
     {
-        $this->settings = $settings;
-        $this->selectedComponent = $settings['components'][0];
+        $this->settings = $settings ?? config('reorder-widgets.default_settings');
+        $this->selectedComponent = Arr::get($settings, 'components.0', null);
+        $this->load();
+        $this->ensureMaxColumnsRespected();
+    }
 
-        // Load initial state from session/database
+    private function ensureMaxColumnsRespected() {
+        if(!$this->components){
+            return;
+        }
+        foreach ($this->components as $key => $component) {
+            if($component['cols'] > $this->columns){
+                $this->components[$key]['cols'] = $this->columns;
+            }
+        }
+    }
+
+    protected function load(){
         $this->components = session('grid_layout', []);
-        //        foreach($settings['selectOptions'] as $key => $value){
-        //            Livewire::component($value, $key);
-        //        }
     }
 
     public function toggleEditMode()
@@ -98,14 +104,23 @@ class ReorderComponent extends Component
         }
     }
 
-    public function saveLayout()
+    public function saveLayout(): void
+    {
+        $this->save();
+        $this->saveNotification();
+    }
+
+    protected function save(): void
     {
         session(['grid_layout' => $this->components]);
+    }
+
+    protected function saveNotification(): void
+    {
         Notification::make()
             ->title('Saved your layout')
             ->success()
             ->send();
-        // Save to database here if needed
     }
 
     public function render()
