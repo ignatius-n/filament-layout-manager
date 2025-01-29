@@ -6,7 +6,7 @@
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
             Title
         </h1>
-        <div class="flex gap-1.5 justify-end">
+        <div class="flex justify-end">
             {{-- Add/Save Buttons (only in edit mode) --}}
             @if($editMode)
                 <x-filament::input.wrapper>
@@ -16,38 +16,14 @@
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
-                <x-filament::button
-                    outlined
-                    color="success"
-                    icon="heroicon-m-plus"
-                    wire:click="addComponent"
-                    class="px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-600">
-                    Add
-                </x-filament::button>
-                <x-filament::button
-                    outlined
-                    color="danger"
-                    icon="heroicon-m-bookmark-square"
-                    wire:click="saveLayout"
-                    class="px-4 py-2 bg-green-500 text-black rounded hover:bg-green-600">
-                    Save Layout
-                </x-filament::button>
+                {{ $this->addAction }}
+
+                {{ $this->saveAction }}
+                <x-filament-actions::modals />
+
             @endif
 
-            @if($settings['showEditButton'])
-                <x-filament::button
-                    outlined
-                    :icon="!$editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open'"
-                    wire:click="toggleEditMode"
-                    class="px-4 py-2 bg-gray-500 text-black rounded hover:bg-gray-600"
-                >
-                    @if($editMode)
-                        Lock Layout
-                    @else
-                        Edit Layout
-                    @endif
-                </x-filament::button>
-            @endif
+            {{$this->editAction}}
         </div>
     </div>
 

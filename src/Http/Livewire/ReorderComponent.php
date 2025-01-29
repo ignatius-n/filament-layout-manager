@@ -2,12 +2,20 @@
 
 namespace Asosick\ReorderWidgets\Http\Livewire;
 
+use Filament\Actions\Action;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 
-class ReorderComponent extends Component
+class ReorderComponent extends Component implements HasForms, HasActions
 {
+    use InteractsWithActions;
+    use InteractsWithForms;
+
     public ?string $selectedComponent = null;
 
     public int $columns = 4;
@@ -109,6 +117,32 @@ class ReorderComponent extends Component
     {
         $this->save();
         $this->saveNotification();
+    }
+
+    public function editAction(): Action
+    {
+        return Action::make('edit')
+            ->outlined()
+            ->icon(fn() => !$this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
+            ->label(fn() => !$this->editMode ? 'Unlock Layout' : 'Lock Layout')
+            ->action(fn () => $this->toggleEditMode());
+    }
+
+    public function addAction(): Action
+    {
+        return Action::make('add')
+            ->outlined()
+            ->color('success')
+            ->icon('heroicon-m-plus')
+            ->action(fn () => $this->addComponent());
+    }
+
+    public function saveAction(): Action
+    {
+        return Action::make('save')
+            ->outlined()
+            ->icon('heroicon-m-bookmark-square')
+            ->action(fn () => $this->saveLayout());
     }
 
     protected function save(): void
