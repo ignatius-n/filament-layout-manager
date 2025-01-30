@@ -10,14 +10,11 @@
             {{-- Add/Save Buttons (only in edit mode) --}}
             @if($layoutCount > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
-                    <x-filament::button
-                        outlined
-                        wire:click="selectLayout({{$i}})"
-                        :color="$currentLayout === $i ? 'primary' : 'secondary'"
-                    >
-                        {{$i + 1}}
-                    </x-filament::button>
+                    <div wire:click="selectLayout({{$i}})">
+                        {{ $this->selectLayoutAction($i) }}
+                    </div>
                 @endfor
+
             @endif
             @if($editMode)
                 <x-filament::input.wrapper>
