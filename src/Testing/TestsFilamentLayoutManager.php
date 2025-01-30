@@ -1,6 +1,6 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Testing;
+namespace Asosick\FilamentLayoutManager\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 

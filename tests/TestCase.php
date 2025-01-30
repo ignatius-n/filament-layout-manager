@@ -1,8 +1,8 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Tests;
+namespace Asosick\FilamentLayoutManager\Tests;
 
-use Asosick\ReorderWidgets\FilamentLayoutManagerServiceProvider;
+use Asosick\FilamentLayoutManager\FilamentLayoutManagerServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;

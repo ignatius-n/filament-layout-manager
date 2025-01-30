@@ -1,5 +1,5 @@
 <?php
 
-namespace Asosick\ReorderWidgets;
+namespace Asosick\FilamentLayoutManager;
 
 class FilamentLayoutManager {}

@@ -1,16 +1,16 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Facades;
+namespace Asosick\FilamentLayoutManager\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Asosick\ReorderWidgets\FilamentLayoutManager
+ * @see \Asosick\FilamentLayoutManager\FilamentLayoutManager
  */
 class FilamentLayoutManager extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Asosick\ReorderWidgets\FilamentLayoutManager::class;
+        return \Asosick\FilamentLayoutManager\FilamentLayoutManager::class;
     }
 }

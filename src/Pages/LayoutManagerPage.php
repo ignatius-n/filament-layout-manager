@@ -1,6 +1,6 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Pages;
+namespace Asosick\FilamentLayoutManager\Pages;
 
 use Filament\Pages\Page;
 use Livewire\Component;

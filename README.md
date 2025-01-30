@@ -39,10 +39,10 @@ php artisan make:filament-page TestPage
 #Replace TestPage with your new page's name
 ```
 
-You custom page needs to extend from `use Asosick\ReorderWidgets\Pages\LayoutManagerPage;`
+You custom page needs to extend from `use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;`
 
 ```php
-use Asosick\ReorderWidgets\Pages\LayoutManagerPage;
+use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
 class TestPage extends LayoutManagerPage
 {}
 ```
@@ -85,7 +85,7 @@ Your reorderable livewire components are wrapped inside a custom livewire compon
 Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
 wrapper component which encloses the livewire components you chose and enables users to manipulate them.
 
-The wrapper class w `Asosick\ReorderWidgets\Http\Livewire\LayoutManager.php`
+The wrapper class w `Asosick\FilamentLayoutManager\\Http\Livewire\LayoutManager.php`
 
 In order to customize say the colour of one of the header buttons, first:
 
@@ -94,14 +94,14 @@ In order to customize say the colour of one of the header buttons, first:
 php artisan vendor:publish --tag="filament-layout-manager-config"
 ```
 #### 2)
-Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` and extend that class off of `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
+Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` and extend that class off of `Asosick\FilamentLayoutManager\\Http\Livewire\ReorderComponent.php`
 
 ```php
 <?php
 
 namespace App\Livewire;
 
-use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
+use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Filament\Actions\Action;
 
 class CustomReorderComponent extends LayoutManager
@@ -148,7 +148,7 @@ is stored in `settings['components']`.
 ```php
 namespace App\Livewire;
 
-use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
+use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Illuminate\Support\Arr;
 
 class CustomReorderComponent extends LayoutManager

@@ -1,8 +1,8 @@
 <?php
 
 // config for Asosick/FilamentLayoutManager
-use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
-use Asosick\ReorderWidgets\Pages\LayoutManagerPage;
+use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
+use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
 
 return [
     'LayoutManager' => LayoutManager::class,

@@ -41,13 +41,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Asosick\\ReorderWidgets\\": "src/",
-            "Asosick\\ReorderWidgets\\Database\\Factories\\": "database/factories/"
+            "Asosick\\FilamentLayoutManager\\": "src/",
+            "Asosick\\FilamentLayoutManager\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Asosick\\ReorderWidgets\\Tests\\": "tests/"
+            "Asosick\\FilamentLayoutManager\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +67,10 @@
     "extra": {
         "laravel": {
             "providers": [
-              "FilamentLayoutManagerServiceProvider"
+              "Asosick\\FilamentLayoutManager\\FilamentLayoutManagerServiceProvider"
             ],
             "aliases": {
-                "ReorderWidgets": "FilamentLayoutManager"
+                "FilamentLayoutManager": "Asosick\\FilamentLayoutManager\\FilamentLayoutManager"
             }
         }
     },

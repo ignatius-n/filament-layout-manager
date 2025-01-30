@@ -1,6 +1,6 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Commands;
+namespace Asosick\FilamentLayoutManager\Commands;
 
 use Illuminate\Console\Command;
 

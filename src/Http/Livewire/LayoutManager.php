@@ -1,6 +1,6 @@
 <?php
 
-namespace Asosick\ReorderWidgets\Http\Livewire;
+namespace Asosick\FilamentLayoutManager\Http\Livewire;
 
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;

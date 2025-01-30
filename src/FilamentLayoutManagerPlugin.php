@@ -1,6 +1,6 @@
 <?php
 
-namespace Asosick\ReorderWidgets;
+namespace Asosick\FilamentLayoutManager;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;

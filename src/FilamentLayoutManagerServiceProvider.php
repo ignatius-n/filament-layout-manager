@@ -1,9 +1,9 @@
 <?php
 
-namespace Asosick\ReorderWidgets;
+namespace Asosick\FilamentLayoutManager;
 
-use Asosick\ReorderWidgets\Commands\FilamentLayoutManagerCommand;
-use Asosick\ReorderWidgets\Testing\TestsFilamentLayoutManager;
+use Asosick\FilamentLayoutManager\Commands\FilamentLayoutManagerCommand;
+use Asosick\FilamentLayoutManager\Testing\TestsFilamentLayoutManager;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
