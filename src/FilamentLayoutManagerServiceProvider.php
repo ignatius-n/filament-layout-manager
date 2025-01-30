@@ -62,7 +62,7 @@ class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('reorder-component', config('filament-layout-manager.LayoutManager'));
+        Livewire::component('reorder-component', config('filament-layout-manager.layout_manager'));
 
         // Asset Registration
         FilamentAsset::register(

@@ -36,10 +36,9 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function mount(?array $settings = []): void
     {
-        $this->settings = $settings ?? config('filament-layout-manager.default_settings');
-        $this->layoutCount = $this->settings['layoutCount'] ?? 3;
+        $this->settings = $settings ?? config('filament-layout-manager.settings');
+        $this->layoutCount = $this->settings['layout_count'] ?? 3;
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
-        $this->layoutCount = config('filament-layout-manager.layoutCount');
         $this->load();
     }
 //

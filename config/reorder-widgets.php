@@ -5,14 +5,45 @@ use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
 
 return [
-    'LayoutManager' => LayoutManager::class,
-    'RorderPage' => LayoutManagerPage::class,
-    'layoutCount' => 3,
+    /**
+     * Points to the LayoutManager livewire component in use.
+     * This class wraps your components and allowes you to manipulate them on the page
+     */
+    'layout_manager' => LayoutManager::class,
+
+
+    /**
+     * Header of LayoutManager Page
+     */
     'header' => 'Test Page',
-    'default_settings' => [
+
+    /**
+     * Parameters passed from LayoutManagerPage -> LayoutManager to define its properties.
+     */
+    'settings' => [
+        /**
+         * Livewire components that can be selected by the user.
+         */
         'components' => [],
-        'selectOptions' => [],
-        'gridColumns' => 2,
-        'showEditButton' => true,
+
+        /**
+         * Defines the options present in the selection box. Must match your provided components.
+         */
+        'select_options' => [],
+
+        /**
+         * Columns allowed in the grid.
+         */
+        'grid_columns' => 2,
+
+        /**
+         * Display the lock/unlock button.
+         */
+        'show_lock_button' => true,
+
+        /**
+         * Number of layout views users can customize
+         */
+        'layout_count' => 3,
     ],
 ];

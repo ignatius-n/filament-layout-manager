@@ -17,13 +17,13 @@ abstract class LayoutManagerPage extends Page
 
     protected int $gridColumns;
 
-    private bool $showEditButton;
+    private bool $showLockButton;
 
     public function __construct()
     {
-        $this->layoutCount = config('filament-layout-manager.layoutCount');
-        $this->gridColumns = config('filament-layout-manager.default_settings.gridColumns');
-        $this->showEditButton = config('filament-layout-manager.default_settings.showEditButton');
+        $this->layoutCount = config('filament-layout-manager.settings.layout_count');
+        $this->gridColumns = config('filament-layout-manager.settings.grid_columns');
+        $this->showLockButton = config('filament-layout-manager.settings.show_lock_button');
     }
 
     /**
@@ -72,9 +72,9 @@ abstract class LayoutManagerPage extends Page
         return $this->gridColumns;
     }
 
-    protected function showEditButton(): bool
+    protected function showLockButton(): bool
     {
-        return $this->showEditButton;
+        return $this->showLockButton;
     }
 
     protected function getViewData(): array
@@ -82,10 +82,10 @@ abstract class LayoutManagerPage extends Page
         return [
             'settings' => [
                 'components' => $this->unWrapWidgetConfiguration($this->getComponents()),
-                'selectOptions' => $this->getComponentSelectOptions(),
-                'gridColumns' => $this->getGridColumns(),
-                'showEditButton' => $this->showEditButton(),
-                'layoutCount' => $this->layoutCount,
+                'select_options' => $this->getComponentSelectOptions(),
+                'grid_columns' => $this->getGridColumns(),
+                'show_lock_button' => $this->showLockButton(),
+                'layout_count' => $this->layoutCount,
             ],
         ];
     }
