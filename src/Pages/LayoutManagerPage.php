@@ -53,6 +53,7 @@ abstract class LayoutManagerPage extends Page
         return collect($this->getComponents())
             ->map(function ($component) {
                 $component_name = $component instanceof WidgetConfiguration ? $component->widget : $component;
+
                 return substr(strrchr($component_name, '\\'), 1);
             })
             ->toArray();
