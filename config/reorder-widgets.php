@@ -7,6 +7,7 @@ use Asosick\ReorderWidgets\Pages\ReorderPage;
 return [
     'ReorderComponent' => ReorderComponent::class,
     'RorderPage' => ReorderPage::class,
+    'header' => 'Test Page',
     'default_settings' => [
         'components' => [],
         'selectOptions' => [],

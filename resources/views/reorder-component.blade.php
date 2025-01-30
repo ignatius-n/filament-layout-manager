@@ -2,9 +2,9 @@
 
 <div x-data="{ sortable: null }" class="p-4">
     {{-- Edit Mode Toggle --}}
-    <div class="mb-4 flex justify-between w-full">
+    <div class="mb-4 flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-            Title
+            {{config('reorder-widgets.header')}}
         </h1>
         <div class="flex justify-end">
             {{-- Add/Save Buttons (only in edit mode) --}}

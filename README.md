@@ -69,12 +69,12 @@ class TestPage extends ReorderPage
 You can now visit your page, unlock your layout, and begin reorganizing.
 
 ## Customization
-Your livewire components are wrapped inside a livewire component with a custom blade file to enable user manipulation. 
+Your reorderable livewire components are wrapped inside a custom livewire component defined by this library which enables user manipulation.
 
 Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
-component responsible for organization.
+wrapper component which encloses the livewire components you chose and enables users to manipulate them.
 
-Therefore, customzation occurs not on the page class but in this class: `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
+The wrapper class w `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
 
 In order to customize say the colour of one of the header buttons, first:
 
@@ -128,16 +128,17 @@ In order to save your user's layout to a database, you'll need to
 
 **Where a user's layout is saved in your database and how that is managed is your concern.**
 
-There needs to be somewhere to store this information. Perhaps a json column on your user's database called `settings` for example. The creation and management of such is your concern.
+There needs to be somewhere to store this information. Perhaps a json column on your user's table called `settings` for example. You'll need to create a column if it doesn't exist in your DB.
 
 #### Example
-Assuming a settings json column on your user's model.
-```php
-<?php
+Assuming a settings json column on your user's model where the components array (declared inside `ReorderComponent` and contains the layout information)
+is stored in `settings['components']`.
 
+```php
 namespace App\Livewire;
 
 use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+use Illuminate\Support\Arr;
 
 class CustomReorderComponent extends ReorderComponent
 {
@@ -153,11 +154,15 @@ class CustomReorderComponent extends ReorderComponent
     public function load(): void
     {
         $user = auth()->user();
-        $this->components = $user->settings['components'] ?? [];
+        $this->components = Arr::get(
+            json_decode($user->settings, true),
+            'components',
+            []
+        );
     }
 }
 ```
-
+If you want to know the shape of `$this->components`, it's structure is the same as `default_settings => [...]` within the package's configuration (or just use `dd()`).
 
 
 [//]: # (This is the contents of the published config file:)

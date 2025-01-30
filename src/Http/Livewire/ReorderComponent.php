@@ -48,7 +48,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
         }
     }
 
-    protected function load()
+    protected function load(): void
     {
         $this->components = session('grid_layout', []);
     }
