@@ -68,6 +68,16 @@ class TestPage extends ReorderPage
 ```
 You can now visit your page, unlock your layout, and begin reorganizing.
 
+## Multiple Layouts
+Users are able to define multiple layouts they can switch between.
+
+Each layout is mapped to a keybinding based on its number:
+* `command+1 | cntl+1` => layout 1
+* `command+2 | cntl+2` => layout 2 
+* so forth...
+
+The default number of views can be changed by the `$layoutCount` variable in your page class, or via the configuration file. 
+
 ## Customization
 Your reorderable livewire components are wrapped inside a custom livewire component defined by this library which enables user manipulation.
 
