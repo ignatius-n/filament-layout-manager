@@ -47,28 +47,29 @@ class LayoutManager extends Component implements HasActions, HasForms
         $this->refocusToLayoutInUse();
     }
 
-
     public function toggleEditMode(): void
     {
         $this->editMode = ! $this->editMode;
         $this->refocusToLayoutInUse();
     }
 
-    private function refocusToLayoutInUse(): void {
+    private function refocusToLayoutInUse(): void
+    {
         $i = $this->currentLayout;
-        while($i>=0){
-            if(count($this->container[$i] ?? []) != 0) {
+        while ($i >= 0) {
+            if (count($this->container[$i] ?? []) != 0) {
                 $this->currentLayout = $i;
+
                 return;
             }
-            $i = $i-1;
+            $i = $i - 1;
         }
         $this->currentLayout = 0;
     }
 
     public function toggleSize($id): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         $cols = $this->container[$this->currentLayout][$id]['cols'];
@@ -77,7 +78,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function increaseSize($id): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         $cols = $this->container[$this->currentLayout][$id]['cols'];
@@ -86,7 +87,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function decreaseSize($id): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         $cols = $this->container[$this->currentLayout][$id]['cols'];
@@ -95,7 +96,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function addComponent(): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         $this->container[$this->currentLayout][uniqid()] = [
@@ -107,7 +108,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function removeComponent($componentId): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         unset($this->container[$this->currentLayout][$componentId]);
@@ -117,7 +118,6 @@ class LayoutManager extends Component implements HasActions, HasForms
     {
         $this->currentLayout = $index;
     }
-
 
     public function updateLayout($orderedIds): void
     {
@@ -187,10 +187,9 @@ class LayoutManager extends Component implements HasActions, HasForms
             ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
     }
 
-
     public function saveLayout(): void
     {
-        if(! $this->editMode) {
+        if (! $this->editMode) {
             return;
         }
         $this->save();

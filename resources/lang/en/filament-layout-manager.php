@@ -7,5 +7,5 @@ return [
     'add' => 'Add',
     'unlock' => 'Unlock',
     'lock' => 'Lock',
-    'saved-notification' => 'Saved your layouts'
+    'saved-notification' => 'Saved your layouts',
 ];

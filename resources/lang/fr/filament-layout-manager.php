@@ -7,5 +7,5 @@ return [
     'add' => 'Ajouter', // AI translated
     'unlock' => 'Débloquer', // AI translated
     'lock' => 'Bloquer', // AI translated
-    'saved-notification' => 'Vos mises en page ont été enregistrées' // AI translated
+    'saved-notification' => 'Vos mises en page ont été enregistrées', // AI translated
 ];

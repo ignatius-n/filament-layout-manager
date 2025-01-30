@@ -11,7 +11,6 @@ return [
      */
     'layout_manager' => LayoutManager::class,
 
-
     /**
      * Header of LayoutManager Page
      */

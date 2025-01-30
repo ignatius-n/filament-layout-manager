@@ -9,6 +9,7 @@ use Livewire\Component;
 abstract class LayoutManagerPage extends Page
 {
     protected static string $view = 'filament-layout-manager::layout-manager-page';
+
     protected array $settings = [];
 
     protected array $components = [];
@@ -26,20 +27,21 @@ abstract class LayoutManagerPage extends Page
         $this->showLockButton = config('filament-layout-manager.settings.show_lock_button');
     }
 
-    private function unwrapWidgetConfiguration(array $components): array{
+    private function unwrapWidgetConfiguration(array $components): array
+    {
         $unwrappedComponents = [];
         foreach ($components as $component) {
-            if($component instanceof WidgetConfiguration) {
+            if ($component instanceof WidgetConfiguration) {
                 $unwrappedComponents[] = [
                     'widget_class' => $component->widget,
-                    'data' => [...$component->widget::getDefaultProperties(), ...$component->getProperties()]
+                    'data' => [...$component->widget::getDefaultProperties(), ...$component->getProperties()],
                 ];
-            }
-            else{
+            } else {
                 $unwrappedComponents[] =
-                    ['widget_class' => $component, 'data'=>[]];
+                    ['widget_class' => $component, 'data' => []];
             }
         }
+
         return $unwrappedComponents;
     }
 
@@ -52,8 +54,9 @@ abstract class LayoutManagerPage extends Page
         return collect($this->getComponents())
             ->mapWithKeys(function ($component) {
                 $component_name = $component instanceof WidgetConfiguration ? $component->widget : $component;
+
                 return [
-                    $component_name => substr(strrchr($component_name, '\\'), 1)
+                    $component_name => substr(strrchr($component_name, '\\'), 1),
                 ];
             })
             ->toArray();
