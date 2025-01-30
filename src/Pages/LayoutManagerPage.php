@@ -9,6 +9,7 @@ use Livewire\Component;
 abstract class LayoutManagerPage extends Page
 {
     protected static string $view = 'filament-layout-manager::layout-manager-page';
+    protected int $layoutCount;
 
     protected array $settings = [];
 
@@ -20,6 +21,7 @@ abstract class LayoutManagerPage extends Page
 
     public function __construct()
     {
+        $this->layoutCount = config('filament-layout-manager.layoutCount');
         $this->gridColumns = config('filament-layout-manager.default_settings.gridColumns');
         $this->showEditButton = config('filament-layout-manager.default_settings.showEditButton');
     }
@@ -83,6 +85,7 @@ abstract class LayoutManagerPage extends Page
                 'selectOptions' => $this->getComponentSelectOptions(),
                 'gridColumns' => $this->getGridColumns(),
                 'showEditButton' => $this->showEditButton(),
+                'layoutCount' => $this->layoutCount,
             ],
         ];
     }

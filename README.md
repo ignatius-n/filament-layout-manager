@@ -69,12 +69,29 @@ class TestPage extends LayoutManagerPage
 ```
 You can now visit your page, unlock your layout, and begin reorganizing.
 
+### Passing Widget Data
+Similar to a traditional filament page, you are able to pass data directly to your widgets. (Support for custom components coming soon...)
+
+```php
+class TestPage extends LayoutManagerPage
+{
+    protected function getComponents(): array
+    {
+        return [
+            CompaniesWidget::make([
+                'company' => 'Apple'
+            ]),
+        ];
+    }
+}
+```
+
 ## Multiple Layouts
 Users are able to define multiple layouts they can switch between.
 
 Each layout is mapped to a keybinding based on its number:
-* `command+1 | cntl+1` => layout 1
-* `command+2 | cntl+2` => layout 2 
+* `command+1 | ctrl+1` => layout 1
+* `command+2 | ctrl+2` => layout 2 
 * so forth...
 
 The default number of views can be changed by the `$layoutCount` variable in your page class, or via the configuration file. 
