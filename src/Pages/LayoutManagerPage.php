@@ -3,6 +3,7 @@
 namespace Asosick\FilamentLayoutManager\Pages;
 
 use Filament\Pages\Page;
+use Filament\Widgets\WidgetConfiguration;
 use Livewire\Component;
 
 abstract class LayoutManagerPage extends Page
@@ -31,6 +32,23 @@ abstract class LayoutManagerPage extends Page
         return $this->components;
     }
 
+    private function unWrapWidgetConfiguration(array $components): array{
+        $unwrappedComponents = [];
+        foreach ($components as $component) {
+            if($component instanceof WidgetConfiguration) {
+                $unwrappedComponents[] = [
+                    'widget_class' => $component->widget,
+                    'data' => [...$component->widget::getDefaultProperties(), ...$component->getProperties()]
+                ];
+            }
+            else{
+                $unwrappedComponents[] =
+                    ['widget_class' => $component, 'data'=>[]];
+            }
+        }
+        return $unwrappedComponents;
+    }
+
     /**
      * To override, provide an associative array of key->values for the drop down
      * return [classpath (selection key) => select_option_text, ... ]
@@ -38,7 +56,12 @@ abstract class LayoutManagerPage extends Page
     protected function getComponentSelectOptions(): array
     {
         return collect($this->getComponents())
-            ->mapWithKeys(fn ($component) => [$component => substr(strrchr($component, '\\'), 1)])
+            ->mapWithKeys(function ($component) {
+                $component_name = $component instanceof WidgetConfiguration ? $component->widget : $component;
+                return [
+                    $component_name => substr(strrchr($component_name, '\\'), 1)
+                ];
+            })
             ->toArray();
     }
 
@@ -56,7 +79,7 @@ abstract class LayoutManagerPage extends Page
     {
         return [
             'settings' => [
-                'components' => $this->getComponents(),
+                'components' => $this->unWrapWidgetConfiguration($this->getComponents()),
                 'selectOptions' => $this->getComponentSelectOptions(),
                 'gridColumns' => $this->getGridColumns(),
                 'showEditButton' => $this->showEditButton(),

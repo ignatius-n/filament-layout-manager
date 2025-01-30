@@ -27,10 +27,8 @@
                         </x-filament::input.select>
                     </x-filament::input.wrapper>
                     <div class="px-1">{{ $this->addAction }}</div>
-
-                        <div class="px-0.5">{{ $this->saveAction }}</div>
+                    <div class="px-0.5">{{ $this->saveAction }}</div>
                     <x-filament-actions::modals />
-
                 @endif
                     {{$this->editAction}}
             </div>
@@ -72,20 +70,11 @@
                         </div>
                     </div>
                 @endif
-
-                @if(is_subclass_of($component, \Filament\Widgets\Widget::class))
-                    <x-filament-widgets::widgets
-                        :data="[
-                        ...(property_exists($this, 'filters') ? ['filters' => $this->filters] : []),
-                        ...$this->getWidgetData(),
-                    ]"
-                        :widgets="$this->getVisibleWidgets()"
-                        wire:key="widget-{{ $id }}"
-                    />
-                @else
-                    <livewire:dynamic-component :is="$component['type']" :key="$id" />
-                @endif
-
+                    @livewire(
+                        $component['type']['widget_class'],
+                        $component['type']['data'],
+                        key("{$component['type']['widget_class']}-{$id}"),
+                    )
             </div>
         @endforeach
     </div>

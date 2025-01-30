@@ -17,7 +17,7 @@ class LayoutManager extends Component implements HasActions, HasForms
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public ?string $selectedComponent = null;
+    public $selectedComponent = null;
 
     public int $layoutCount = 3;
 
@@ -41,6 +41,11 @@ class LayoutManager extends Component implements HasActions, HasForms
         $this->layoutCount = config('filament-layout-manager.layoutCount');
         $this->load();
     }
+//
+//    private function setSelectedComponent(?array $settings = []): void
+//    {
+//        $this->selectedComponent = Arr::get($settings, 'components.0', null);
+//    }
 
     protected function load(): void
     {
