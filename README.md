@@ -1,22 +1,21 @@
-# Not published - Under active development.
-
 # Filament Layout Manager
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
+### BETA PRODUCT
 
 
-### Allows users to customize and save their own dashboards composed of livewire components.
+## Allow users to customize and save their own FilamentPHP pages composed of livewire components
+### Demo
 ![demo.gif](demo.gif)
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-#COMING SOON
-#composer require asosick/filament-layout-manager
+composer require asosick/filament-layout-manager
 ```
 
 You can publish the config file with:

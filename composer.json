@@ -1,6 +1,6 @@
 {
     "name": "asosick/filament-layout-manager",
-    "description": "Package to allow uers to organize widgets on their page themselves",
+    "description": "Allow users to customize and save their own FilamentPHP pages composed of livewire components",
     "keywords": [
         "asosick",
         "laravel",
