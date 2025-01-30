@@ -7,4 +7,5 @@ return [
     'add' => '追加', // AI translated
     'unlock' => '解除', // AI translated
     'lock' => 'ロック', // AI translated
+    'saved-notification' => 'レイアウトを保存しました' // AI translated
 ];

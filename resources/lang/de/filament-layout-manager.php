@@ -7,4 +7,5 @@ return [
     'add' => 'Neu', // AI translated
     'unlock' => 'Entsperren', // AI translated
     'lock' => 'Sperren', // AI translated
+    'saved-notification' => 'Ihre Layouts wurden gespeichert' // AI translated
 ];

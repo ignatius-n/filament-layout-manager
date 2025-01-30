@@ -7,4 +7,5 @@ return [
     'add' => 'Añadir', // AI translated
     'unlock' => 'Desbloquear', // AI translated
     'lock' => 'Bloquear', // AI translated
+    'saved-notification' => 'Diseños guardados' // AI translated
 ];

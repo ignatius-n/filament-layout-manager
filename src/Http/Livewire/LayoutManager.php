@@ -210,7 +210,7 @@ class LayoutManager extends Component implements HasActions, HasForms
     protected function saveNotification(): void
     {
         Notification::make()
-            ->title('Saved your layout')
+            ->title(__('filament-layout-manager::filament-layout-manager.saved-notification'))
             ->success()
             ->send();
     }
