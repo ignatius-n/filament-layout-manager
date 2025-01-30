@@ -98,7 +98,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public function removeComponent($componentId): void
     {
-        unset($this->components[$componentId]);
+        unset($this->components[$this->currentLayout][$componentId]);
     }
 
     public function updateLayout($orderedIds): void
@@ -113,7 +113,8 @@ class ReorderComponent extends Component implements HasActions, HasForms
                 $sortedData[$this->currentLayout][$key] = $this->components[$this->currentLayout][$key];
             }
         }
-        if (count($sortedData) === count($this->components)) {
+
+        if (count($sortedData[$this->currentLayout]) === count($this->components[$this->currentLayout])) {
             $this->components = array_merge($sortedData, $this->components);
         }
     }

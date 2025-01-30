@@ -38,7 +38,7 @@
 
     <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
         @foreach($components[$this->currentLayout] ?? [] as $id => $component)
-            <div wire:key="grid-item-{{ $id }}"
+            <div wire:key="grid-item-{{$currentLayout}}-{{ $id }}"
                  data-id="{{ $id }}"
                  class="col-span-{{ $component['cols'] }}"
 {{--                 class="relative group transition-all h-full"--}}
@@ -121,6 +121,7 @@
                     ghostClass: 'opacity-50',
                     onEnd: (evt) => {
                         const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
+                        console.log(orderedIds);
                         moveEndMorphMarker(grid);
                         Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
                     }
