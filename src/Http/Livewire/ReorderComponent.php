@@ -130,7 +130,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
             ->label(__('reorder-widgets::reorder-widgets.edit'))
             ->outlined()
             ->icon(fn () => ! $this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
-            ->label(fn () => ! $this->editMode ? __('reorder-widgets::reorder-widgets.unlock_layout') : __('reorder-widgets::reorder-widgets.lock_layout'))
+            ->label(fn () => ! $this->editMode ? __('reorder-widgets::reorder-widgets.unlock') : __('reorder-widgets::reorder-widgets.lock'))
             ->action(fn () => $this->toggleEditMode());
     }
 
