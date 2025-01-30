@@ -8,11 +8,12 @@
         </h1>
         <div class="flex justify-end space-x-2">
             @if($layoutCount > 1)
-                    @for($i = 0; $i<$layoutCount; $i++)
-                        <div wire:click="selectLayout({{$i}})">
-                            {{ $this->selectLayoutAction($i) }}
-                        </div>
-                    @endfor
+                @for($i = 0; $i<$layoutCount; $i++)
+                    <div wire:click="selectLayout({{$i}})">
+                        {{ $this->selectLayoutAction($i) }}
+                    </div>
+                @endfor
+
             @endif
             @if($editMode)
                 <x-filament::input.wrapper class="px-1">
@@ -35,7 +36,7 @@
 
     <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
         @foreach($components[$this->currentLayout] ?? [] as $id => $component)
-            <div wire:key="grid-item-{{$currentLayout}}-{{ $id }}"
+            <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
                  class="col-span-{{ $component['cols'] }}"
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">

@@ -106,16 +106,14 @@ class ReorderComponent extends Component implements HasActions, HasForms
         if (! isset($orderedIds) || ! is_array($orderedIds)) {
             return;
         }
-
         $sortedData = [];
         foreach ($orderedIds as $key) {
             if (isset($this->components[$this->currentLayout][$key])) {
-                $sortedData[$this->currentLayout][$key] = $this->components[$this->currentLayout][$key];
+                $sortedData[$key] = $this->components[$this->currentLayout][$key];
             }
         }
-
-        if (count($sortedData[$this->currentLayout]) === count($this->components[$this->currentLayout])) {
-            $this->components = array_merge($sortedData, $this->components);
+        if (count($sortedData) === count($this->components[$this->currentLayout])) {
+            $this->components[$this->currentLayout] = $sortedData;
         }
     }
 
