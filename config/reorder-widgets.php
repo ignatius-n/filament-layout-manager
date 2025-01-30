@@ -7,9 +7,12 @@ use Asosick\ReorderWidgets\Pages\ReorderPage;
 return [
     'ReorderComponent' => ReorderComponent::class,
     'RorderPage' => ReorderPage::class,
-
-    'settings' => [
-        'grid_columns' => 2,
-        'grid_rows' => 2,
+    'layoutCount' => 3,
+    'header' => 'Test Page',
+    'default_settings' => [
+        'components' => [],
+        'selectOptions' => [],
+        'gridColumns' => 2,
+        'showEditButton' => true,
     ],
 ];

@@ -3,7 +3,6 @@
 namespace Asosick\ReorderWidgets;
 
 use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
-use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
 use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -63,7 +62,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('reorder-component', ReorderComponent::class);
+        Livewire::component('reorder-component', config('reorder-widgets.ReorderComponent'));
 
         // Asset Registration
         FilamentAsset::register(

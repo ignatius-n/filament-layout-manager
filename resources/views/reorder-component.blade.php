@@ -2,65 +2,45 @@
 
 <div x-data="{ sortable: null }" class="p-4">
     {{-- Edit Mode Toggle --}}
-    <div class="mb-4 flex justify-between w-full">
+    <div class="mb-4 flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-            Title
+            {{config('reorder-widgets.header')}}
         </h1>
-        <div class="flex gap-1.5 justify-end">
-            {{-- Add/Save Buttons (only in edit mode) --}}
+        <div class="flex justify-end space-x-2">
+            @if($layoutCount > 1)
+                @for($i = 0; $i<$layoutCount; $i++)
+                    <div wire:click="selectLayout({{$i}})">
+                        {{ $this->selectLayoutAction($i) }}
+                    </div>
+                @endfor
+
+            @endif
             @if($editMode)
-                <x-filament::input.wrapper>
+                <x-filament::input.wrapper class="px-1">
                     <x-filament::input.select wire:model="selectedComponent">
-                        @foreach($settings['selectOptions'] as $key => $value)
+                        @foreach(Arr::get($settings, 'selectOptions', []) as $key => $value)
                             <option value="{{$key}}">{{$value}}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
-                <x-filament::button
-                    outlined
-                    color="success"
-                    icon="heroicon-m-plus"
-                    wire:click="addComponent"
-                    class="px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-600">
-                    Add
-                </x-filament::button>
-                <x-filament::button
-                    outlined
-                    color="danger"
-                    icon="heroicon-m-bookmark-square"
-                    wire:click="saveLayout"
-                    class="px-4 py-2 bg-green-500 text-black rounded hover:bg-green-600">
-                    Save Layout
-                </x-filament::button>
-            @endif
+                <div class="px-1">{{ $this->addAction }}</div>
 
-            @if($settings['showEditButton'])
-                <x-filament::button
-                    outlined
-                    :icon="!$editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open'"
-                    wire:click="toggleEditMode"
-                    class="px-4 py-2 bg-gray-500 text-black rounded hover:bg-gray-600"
-                >
-                    @if($editMode)
-                        Lock Layout
-                    @else
-                        Edit Layout
-                    @endif
-                </x-filament::button>
+                    <div class="px-0.5">{{ $this->saveAction }}</div>
+                <x-filament-actions::modals />
+
             @endif
+                <div class="px-1">{{$this->editAction}}</div>
         </div>
     </div>
 
 
-    <div class="grid md:grid-cols-{{$columns/2}}  gap-4 !important" x-ref="grid">
-        @foreach($components as $id => $component)
+    <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
+        @foreach($components[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
                  class="col-span-{{ $component['cols'] }}"
-{{--                 class="relative group transition-all h-full"--}}
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
-                {{-- Edit Mode Controls --}}
                 @if($editMode)
                     <div class="opacity-75 hover:opacity-100 transition-opacity flex gap-1 p-2">
                         <button wire:click="removeComponent('{{ $id }}')">
@@ -137,6 +117,7 @@
                     ghostClass: 'opacity-50',
                     onEnd: (evt) => {
                         const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
+                        console.log(orderedIds);
                         moveEndMorphMarker(grid);
                         Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
                     }

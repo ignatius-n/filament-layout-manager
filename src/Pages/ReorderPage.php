@@ -15,16 +15,12 @@ abstract class ReorderPage extends Page
 
     protected int $gridColumns;
 
-    protected int $gridRows;
-
-    protected bool $allowMultipleComponents = true;
-
-    private bool $showEditButton = true;
+    private bool $showEditButton;
 
     public function __construct()
     {
-        $this->gridColumns = config('reorder-widgets.settings.grid_columns');
-        $this->gridRows = config('reorder-widgets.settings.grid_rows');
+        $this->gridColumns = config('reorder-widgets.default_settings.gridColumns');
+        $this->showEditButton = config('reorder-widgets.default_settings.showEditButton');
     }
 
     /**
@@ -46,32 +42,15 @@ abstract class ReorderPage extends Page
             ->toArray();
     }
 
-    protected function allowMultipleComponents(): bool
-    {
-        return $this->allowMultipleComponents;
-    }
-
     protected function getGridColumns(): int
     {
         return $this->gridColumns;
-    }
-
-    protected function getGridRows(): int
-    {
-        return $this->gridRows;
     }
 
     protected function showEditButton(): bool
     {
         return $this->showEditButton;
     }
-
-    //    protected function getHeaderActions(): array
-    //    {
-    //        return [
-    //
-    //        ];
-    //    }
 
     protected function getViewData(): array
     {
@@ -80,7 +59,6 @@ abstract class ReorderPage extends Page
                 'components' => $this->getComponents(),
                 'selectOptions' => $this->getComponentSelectOptions(),
                 'gridColumns' => $this->getGridColumns(),
-                'gridRows' => $this->getGridRows(),
                 'showEditButton' => $this->showEditButton(),
             ],
         ];
