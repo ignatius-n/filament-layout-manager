@@ -33,7 +33,9 @@
                     <div class="px-0.5">{{ $this->saveAction }}</div>
                     <x-filament-actions::modals />
                 @endif
+                @if($showLockButton)
                     {{$this->editAction}}
+                @endif
             </div>
         </div>
     </div>

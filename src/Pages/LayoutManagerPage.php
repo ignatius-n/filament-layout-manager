@@ -9,8 +9,6 @@ use Livewire\Component;
 abstract class LayoutManagerPage extends Page
 {
     protected static string $view = 'filament-layout-manager::layout-manager-page';
-    protected int $layoutCount;
-
     protected array $settings = [];
 
     protected array $components = [];
@@ -19,6 +17,8 @@ abstract class LayoutManagerPage extends Page
 
     private bool $showLockButton;
 
+    protected int $layoutCount;
+
     public function __construct()
     {
         $this->layoutCount = config('filament-layout-manager.settings.layout_count');
@@ -26,15 +26,7 @@ abstract class LayoutManagerPage extends Page
         $this->showLockButton = config('filament-layout-manager.settings.show_lock_button');
     }
 
-    /**
-     * @return array<Component>
-     */
-    protected function getComponents(): array
-    {
-        return $this->components;
-    }
-
-    private function unWrapWidgetConfiguration(array $components): array{
+    private function unwrapWidgetConfiguration(array $components): array{
         $unwrappedComponents = [];
         foreach ($components as $component) {
             if($component instanceof WidgetConfiguration) {
@@ -67,6 +59,14 @@ abstract class LayoutManagerPage extends Page
             ->toArray();
     }
 
+    /**
+     * @return array<Component>
+     */
+    protected function getComponents(): array
+    {
+        return $this->components;
+    }
+
     protected function getGridColumns(): int
     {
         return $this->gridColumns;
@@ -77,15 +77,20 @@ abstract class LayoutManagerPage extends Page
         return $this->showLockButton;
     }
 
+    protected function getLayoutCount(): int
+    {
+        return $this->layoutCount;
+    }
+
     protected function getViewData(): array
     {
         return [
             'settings' => [
-                'components' => $this->unWrapWidgetConfiguration($this->getComponents()),
+                'components' => $this->unwrapWidgetConfiguration($this->getComponents()),
                 'select_options' => $this->getComponentSelectOptions(),
                 'grid_columns' => $this->getGridColumns(),
                 'show_lock_button' => $this->showLockButton(),
-                'layout_count' => $this->layoutCount,
+                'layout_count' => $this->getLayoutCount(),
             ],
         ];
     }

@@ -17,40 +17,35 @@ class LayoutManager extends Component implements HasActions, HasForms
     use InteractsWithActions;
     use InteractsWithForms;
 
-    public $selectedComponent = null;
-
-    public int $layoutCount = 3;
+    protected $listeners = ['updateLayout'];
 
     #[Url(as: 'l')]
     public ?int $currentLayout = 0;
 
-    public int $columns = 4;
-
-    protected $listeners = ['updateLayout'];
-
-    public $components = [];
+    public array $components = [];
 
     public bool $editMode = false;
 
     public array $settings = [];
 
+    public $selectedComponent;
+
+    public int $layoutCount;
+
+    public int $columns;
+
+    public bool $showLockButton;
+
     public function mount(?array $settings = []): void
     {
         $this->settings = $settings ?? config('filament-layout-manager.settings');
-        $this->layoutCount = $this->settings['layout_count'] ?? 3;
+        $this->layoutCount = $this->settings['layout_count'] ?? config('filament-layout-manager.settings.layout_count');
+        $this->columns = $this->settings['grid_columns'] ?? config('filament-layout-manager.settings.grid_columns');
+        $this->showLockButton = $this->settings['show_lock_button'] ?? config('filament-layout-manager.settings.show_lock_button');
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
         $this->load();
     }
-//
-//    private function setSelectedComponent(?array $settings = []): void
-//    {
-//        $this->selectedComponent = Arr::get($settings, 'components.0', null);
-//    }
 
-    protected function load(): void
-    {
-        $this->components = session('grid_layout', []);
-    }
 
     public function toggleEditMode(): void
     {
@@ -117,6 +112,12 @@ class LayoutManager extends Component implements HasActions, HasForms
         unset($this->components[$this->currentLayout][$componentId]);
     }
 
+    public function selectLayout($index): void
+    {
+        $this->currentLayout = $index;
+    }
+
+
     public function updateLayout($orderedIds): void
     {
         if(! $this->editMode) {
@@ -134,15 +135,6 @@ class LayoutManager extends Component implements HasActions, HasForms
         if (count($sortedData) === count($this->components[$this->currentLayout])) {
             $this->components[$this->currentLayout] = $sortedData;
         }
-    }
-
-    public function saveLayout(): void
-    {
-        if(! $this->editMode) {
-            return;
-        }
-        $this->save();
-        $this->saveNotification();
     }
 
     public function editAction(): Action
@@ -197,16 +189,24 @@ class LayoutManager extends Component implements HasActions, HasForms
             ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
     }
 
-    private bool $savePageAsParameter = true;
 
-    public function selectLayout($index): void
+    public function saveLayout(): void
     {
-        $this->currentLayout = $index;
+        if(! $this->editMode) {
+            return;
+        }
+        $this->save();
+        $this->saveNotification();
     }
 
     protected function save(): void
     {
-        session(['grid_layout' => $this->components]);
+        session(['layout_manager' => $this->components]);
+    }
+
+    protected function load(): void
+    {
+        $this->components = session('layout_manager', []);
     }
 
     protected function saveNotification(): void

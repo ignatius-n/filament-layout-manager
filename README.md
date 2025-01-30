@@ -149,9 +149,9 @@ I recommend reading the code in ReorderComponent when digging into customization
 
 
 ### Saving Layouts to a Database
-Layouts by default are saved to a user's session, hence they do not persist beyond the user's current session.
+Layouts by default are saved to a user's session ergo they are not persisted to hard storage.
 
-In order to save your user's layout to a database, you'll need to
+In order to save your user's layout to a database (or file, etc.), you'll need to
 1. Override the ReorderComponent as shown above
 2. Implement a new `save()` function to persist the layout
 3. Implement a new `load()` function to load the layout
@@ -192,8 +192,6 @@ class CustomReorderComponent extends LayoutManager
     }
 }
 ```
-If you want to know the shape of `$this->components`, it's structure is the same as `settings => [...]` within the package's configuration (or just use `dd()`).
-
 
 [//]: # (This is the contents of the published config file:)
 
