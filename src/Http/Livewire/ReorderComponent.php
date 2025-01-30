@@ -127,15 +127,17 @@ class ReorderComponent extends Component implements HasActions, HasForms
     public function editAction(): Action
     {
         return Action::make('edit')
+            ->label(__('reorder-widgets::reorder-widgets.edit'))
             ->outlined()
             ->icon(fn () => ! $this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
-            ->label(fn () => ! $this->editMode ? 'Unlock Layout' : 'Lock Layout')
+            ->label(fn () => ! $this->editMode ? __('reorder-widgets::reorder-widgets.unlock_layout') : __('reorder-widgets::reorder-widgets.lock_layout'))
             ->action(fn () => $this->toggleEditMode());
     }
 
     public function addAction(): Action
     {
         return Action::make('add')
+            ->label(__('reorder-widgets::reorder-widgets.add'))
             ->outlined()
             ->color('success')
             ->icon('heroicon-m-plus')
@@ -145,6 +147,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
     public function saveAction(): Action
     {
         return Action::make('save')
+            ->label(__('reorder-widgets::reorder-widgets.save'))
             ->outlined()
             ->color('danger')
             ->icon('heroicon-m-bookmark-square')
@@ -168,7 +171,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
             ->label(fn (array $arguments) => $id + 1)
             ->outlined()
             ->keyBindings(function (array $arguments) use ($id) {
-                return ['command+' . $id + 1, 'ctrl+' . $id + 1];
+                return ['command+' . ($id + 1), 'ctrl+' . ($id + 1)];
             })
             ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
     }
