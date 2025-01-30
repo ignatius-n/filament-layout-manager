@@ -8,11 +8,11 @@
         </h1>
         <div class="flex justify-end space-x-2">
             @php
-                $usedLayouts = collect($this->components)->filter(fn ($component) => count($component) !==0)->count();
+                $usedLayouts = collect($this->container)->filter(fn ($component) => count($component) !==0)->count();
             @endphp
             @if($editMode || $usedLayouts > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
-                    @if($editMode || count($components[$i] ?? [])>0)
+                    @if($editMode || count($container[$i] ?? [])>0)
                         <div wire:click="selectLayout({{$i}})">
                             {{ $this->selectLayoutAction($i) }}
                         </div>
@@ -42,7 +42,7 @@
 
 
     <div class="sm:grid block md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
-        @foreach($components[$this->currentLayout] ?? [] as $id => $component)
+        @foreach($container[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
                  class="p-1"
@@ -53,7 +53,6 @@
                         <button wire:click="removeComponent('{{ $id }}')">
                             ✕
                         </button>
-                        @if($components > 1)
                             <button
                                 wire:click="toggleSize('{{ $id }}')"
                                 class="p-1 text-4sm">
@@ -69,7 +68,6 @@
                                 class="p-1 text-4sm">
                                 -
                             </button>
-                        @endif
                         <div class="handle cursor-move  bg-black rounded-full p-1 shadow text-4xl">
                             ⤯
                         </div>

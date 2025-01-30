@@ -176,7 +176,7 @@ class CustomReorderComponent extends LayoutManager
     {
         $user = auth()->user();
         $user->settings = [
-            'components' => $this->components
+            'components' => $this->container
         ];
         $user->save();
     }
@@ -184,7 +184,7 @@ class CustomReorderComponent extends LayoutManager
     public function load(): void
     {
         $user = auth()->user();
-        $this->components = Arr::get(
+        $this->container = Arr::get(
             json_decode($user->settings, true),
             'components',
             []
