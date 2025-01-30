@@ -7,7 +7,10 @@
             {{config('filament-layout-manager.header')}}
         </h1>
         <div class="flex justify-end space-x-2">
-            @if($layoutCount > 1)
+            @php
+                $usedLayouts = collect($this->components)->filter(fn ($component) => count($component) !==0)->count();
+            @endphp
+            @if($editMode || $usedLayouts > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
                     @if($editMode || count($components[$i] ?? [])>0)
                         <div wire:click="selectLayout({{$i}})">
