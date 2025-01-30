@@ -9,6 +9,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class LayoutManager extends Component implements HasActions, HasForms
@@ -20,7 +21,8 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public int $layoutCount = 3;
 
-    public int $currentLayout = 0;
+    #[Url(as: 'l')]
+    public ?int $currentLayout = 0;
 
     public int $columns = 4;
 
@@ -38,19 +40,6 @@ class LayoutManager extends Component implements HasActions, HasForms
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
         $this->layoutCount = config('filament-layout-manager.layoutCount');
         $this->load();
-        //        $this->ensureMaxColumnsRespected();
-    }
-
-    private function ensureMaxColumnsRespected(): void
-    {
-        if (! $this->components) {
-            return;
-        }
-        foreach ($this->components as $key => $component) {
-            if ($component['cols'] > $this->columns) {
-                $this->components[$key]['cols'] = $this->columns;
-            }
-        }
     }
 
     protected function load(): void
@@ -61,34 +50,53 @@ class LayoutManager extends Component implements HasActions, HasForms
     public function toggleEditMode(): void
     {
         $this->editMode = ! $this->editMode;
+        $this->refocusToLayoutInUse();
+    }
+
+    private function refocusToLayoutInUse(): void {
+        $i = $this->currentLayout;
+        while($i>=0){
+            if(count($this->components[$i] ?? []) != 0) {
+                $this->currentLayout = $i;
+                return;
+            }
+            $i = $i-1;
+        }
+        $this->currentLayout = 0;
     }
 
     public function toggleSize($id): void
     {
-        if ($this->editMode) {
-            $cols = $this->components[$this->currentLayout][$id]['cols'];
-            $this->components[$this->currentLayout][$id]['cols'] = $cols === $this->columns ? 1 : $this->columns;
+        if(! $this->editMode) {
+            return;
         }
+        $cols = $this->components[$this->currentLayout][$id]['cols'];
+        $this->components[$this->currentLayout][$id]['cols'] = $cols === $this->columns ? 1 : $this->columns;
     }
 
     public function increaseSize($id): void
     {
-        if ($this->editMode) {
-            $cols = $this->components[$this->currentLayout][$id]['cols'];
-            $this->components[$this->currentLayout][$id]['cols'] = min($this->columns, $cols + 1);
+        if(! $this->editMode) {
+            return;
         }
+        $cols = $this->components[$this->currentLayout][$id]['cols'];
+        $this->components[$this->currentLayout][$id]['cols'] = min($this->columns, $cols + 1);
     }
 
     public function decreaseSize($id): void
     {
-        if ($this->editMode) {
-            $cols = $this->components[$this->currentLayout][$id]['cols'];
-            $this->components[$this->currentLayout][$id]['cols'] = max(1, $cols - 1);
+        if(! $this->editMode) {
+            return;
         }
+        $cols = $this->components[$this->currentLayout][$id]['cols'];
+        $this->components[$this->currentLayout][$id]['cols'] = max(1, $cols - 1);
     }
 
     public function addComponent(): void
     {
+        if(! $this->editMode) {
+            return;
+        }
         $this->components[$this->currentLayout][uniqid()] = [
             'cols' => 1,
             'type' => $this->selectedComponent,
@@ -98,11 +106,17 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function removeComponent($componentId): void
     {
+        if(! $this->editMode) {
+            return;
+        }
         unset($this->components[$this->currentLayout][$componentId]);
     }
 
     public function updateLayout($orderedIds): void
     {
+        if(! $this->editMode) {
+            return;
+        }
         if (! isset($orderedIds) || ! is_array($orderedIds)) {
             return;
         }
@@ -119,6 +133,9 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public function saveLayout(): void
     {
+        if(! $this->editMode) {
+            return;
+        }
         $this->save();
         $this->saveNotification();
     }
@@ -174,6 +191,8 @@ class LayoutManager extends Component implements HasActions, HasForms
             })
             ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
     }
+
+    private bool $savePageAsParameter = true;
 
     public function selectLayout($index): void
     {

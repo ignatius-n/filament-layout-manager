@@ -9,9 +9,11 @@
         <div class="flex justify-end space-x-2">
             @if($layoutCount > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
-                    <div wire:click="selectLayout({{$i}})">
-                        {{ $this->selectLayoutAction($i) }}
-                    </div>
+                    @if($editMode || count($components[$i] ?? [])>0)
+                        <div wire:click="selectLayout({{$i}})">
+                            {{ $this->selectLayoutAction($i) }}
+                        </div>
+                    @endif
                 @endfor
 
             @endif
