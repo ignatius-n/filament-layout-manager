@@ -129,7 +129,7 @@ namespace App\Livewire;
 use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Filament\Actions\Action;
 
-class CustomReorderComponent extends LayoutManager
+class CustomLayoutManager extends LayoutManager
 {
 
     /* Example of changing the colour of the add button to red */
@@ -144,7 +144,7 @@ Update your configuration to point to your new custom class.
 ```php
 // newly published config file
 return [
-    'layout_manager' => \App\Livewire\CustomReorderComponent::class,
+    'layout_manager' => \App\Livewire\CustomLayoutManager::class,
     // Other settings 
     // ...
 ];
@@ -167,8 +167,7 @@ In order to save your user's layout to a database (or file, etc.), you'll need t
 There needs to be somewhere to store this information. Perhaps a json column on your user's table called `settings` for example. You'll need to create a column if it doesn't exist in your DB.
 
 #### Example
-Assuming a settings json column on your user's model where the components array (declared inside `ReorderComponent` and contains the layout information)
-is stored in `settings['components']`.
+Assumes a `settings` json column on your user's model where settings can be stored.
 
 ```php
 namespace App\Livewire;
@@ -176,7 +175,7 @@ namespace App\Livewire;
 use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Illuminate\Support\Arr;
 
-class CustomReorderComponent extends LayoutManager
+class CustomLayoutManager extends LayoutManager
 {
     public function save(): void
     {
@@ -240,7 +239,7 @@ class TestPage extends LayoutManagerPage
     }
 }
 ```
-
+or...
 
 ```php
 /* In filament-layout-manage.php config file */
