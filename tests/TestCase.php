@@ -2,7 +2,7 @@
 
 namespace Asosick\ReorderWidgets\Tests;
 
-use Asosick\ReorderWidgets\FilamentLayoutManagerServicerProvider;
+use Asosick\ReorderWidgets\FilamentLayoutManagerServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -44,7 +44,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            FilamentLayoutManagerServicerProvider::class,
+            FilamentLayoutManagerServiceProvider::class,
         ];
     }
 

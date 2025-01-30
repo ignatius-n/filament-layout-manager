@@ -16,7 +16,7 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentLayoutManagerServicerProvider extends PackageServiceProvider
+class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'filament-layout-manager';
 
