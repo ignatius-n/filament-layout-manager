@@ -89,7 +89,7 @@ You can now visit your page, unlock your layout, and begin reorganizing.
 ### Passing Widget Data
 Similar to a traditional filament page, you are able to pass data directly to your widgets. (Support for passing data to custom components coming soon...)
 
-Keep in mind, data passed to this widget will be applied to all instances of this widget***
+***Keep in mind, data passed to this widget will be applied to all instances of this widget***
 
 ```php
 class TestPage extends LayoutManagerPage
