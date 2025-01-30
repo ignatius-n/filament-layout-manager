@@ -1,11 +1,11 @@
 # Not published - Under active development.
 
-# FilamentPHP User Customizable Page
+# Filament Layout Manager
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/reorder-widgets.svg?style=flat-square)](https://packagist.org/packages/asosick/reorder-widgets)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/reorder-widgets/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/reorder-widgets/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/asosick/reorder-widgets/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/asosick/reorder-widgets/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/asosick/reorder-widgets.svg?style=flat-square)](https://packagist.org/packages/asosick/reorder-widgets)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
 
 
 ### Allows users to customize and save their own dashboards composed of livewire components.
@@ -16,19 +16,19 @@ You can install the package via composer:
 
 ```bash
 #COMING SOON
-#composer require asosick/reorder-widgets
+#composer require asosick/filament-layout-manager
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="reorder-widgets-config"
+php artisan vendor:publish --tag="filament-layout-manager-config"
 ```
 
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag="reorder-widgets-views"
+php artisan vendor:publish --tag="filament-layout-manager-views"
 ```
 
 ## Usage
@@ -39,16 +39,17 @@ php artisan make:filament-page TestPage
 #Replace TestPage with your new page's name
 ```
 
-You custom page needs to extend from `use Asosick\ReorderWidgets\Pages\ReorderPage;`
+You custom page needs to extend from `use Asosick\ReorderWidgets\Pages\LayoutManagerPage;`
+
 ```php
-use Asosick\ReorderWidgets\Pages\ReorderPage;
-class TestPage extends ReorderPage
+use Asosick\ReorderWidgets\Pages\LayoutManagerPage;
+class TestPage extends LayoutManagerPage
 {}
 ```
 
 You can now define the livewire components you'd like users to be able to add to this new page (this includes your widgets, custom components, or even your ListRecord views though that is not recommended)
 ```php
-class TestPage extends ReorderPage
+class TestPage extends LayoutManagerPage
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
@@ -84,13 +85,13 @@ Your reorderable livewire components are wrapped inside a custom livewire compon
 Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
 wrapper component which encloses the livewire components you chose and enables users to manipulate them.
 
-The wrapper class w `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
+The wrapper class w `Asosick\ReorderWidgets\Http\Livewire\LayoutManager.php`
 
 In order to customize say the colour of one of the header buttons, first:
 
 #### 1)
 ```bash
-php artisan vendor:publish --tag="reorder-widgets-config"
+php artisan vendor:publish --tag="filament-layout-manager-config"
 ```
 #### 2)
 Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` and extend that class off of `Asosick\ReorderWidgets\Http\Livewire\ReorderComponent.php`
@@ -100,10 +101,10 @@ Create a new class in your application called (for example) `App\Livewire\Custom
 
 namespace App\Livewire;
 
-use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
 use Filament\Actions\Action;
 
-class CustomReorderComponent extends ReorderComponent
+class CustomReorderComponent extends LayoutManager
 {
 
     /* Example of changing the colour of the add button to red */
@@ -116,9 +117,9 @@ class CustomReorderComponent extends ReorderComponent
 #### 3)
 Update your configuration to point to your new custom class.
 ```php
-// config for Asosick/ReorderWidgets
+// config for Asosick/FilamentLayoutManager
 return [
-    'ReorderComponent' => \App\Livewire\CustomReorderComponent::class,
+    'LayoutManager' => \App\Livewire\CustomReorderComponent::class,
     // Other settings 
     // ...
 ];
@@ -147,10 +148,10 @@ is stored in `settings['components']`.
 ```php
 namespace App\Livewire;
 
-use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
+use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
 use Illuminate\Support\Arr;
 
-class CustomReorderComponent extends ReorderComponent
+class CustomReorderComponent extends LayoutManager
 {
     public function save(): void
     {

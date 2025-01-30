@@ -4,7 +4,7 @@
     {{-- Edit Mode Toggle --}}
     <div class="mb-4 flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-            {{config('reorder-widgets.header')}}
+            {{config('filament-layout-manager.header')}}
         </h1>
         <div class="flex justify-end space-x-2">
             @if($layoutCount > 1)

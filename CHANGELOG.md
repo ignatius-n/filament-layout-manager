@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `reorder-widgets` will be documented in this file.
+All notable changes to `filament-layout-manager` will be documented in this file.
 
 ## 1.0.0 - 202X-XX-XX
 

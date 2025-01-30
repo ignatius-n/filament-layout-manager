@@ -4,9 +4,9 @@ namespace Asosick\ReorderWidgets\Commands;
 
 use Illuminate\Console\Command;
 
-class ReorderWidgetsCommand extends Command
+class FilamentLayoutManagerCommand extends Command
 {
-    public $signature = 'reorder-widgets';
+    public $signature = 'filament-layout-manager';
 
     public $description = 'My command';
 

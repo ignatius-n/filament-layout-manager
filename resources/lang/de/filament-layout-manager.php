@@ -1,6 +1,6 @@
 <?php
 
-// translations for Asosick/ReorderWidgets
+// translations for Asosick/FilamentLayoutManager
 return [
     'save' => 'Speichern', // AI translated
     'edit' => 'Ändern', // AI translated

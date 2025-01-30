@@ -5,9 +5,9 @@ namespace Asosick\ReorderWidgets\Pages;
 use Filament\Pages\Page;
 use Livewire\Component;
 
-abstract class ReorderPage extends Page
+abstract class LayoutManagerPage extends Page
 {
-    protected static string $view = 'reorder-widgets::reorder-page';
+    protected static string $view = 'filament-layout-manager::layout-manager-page';
 
     protected array $settings = [];
 
@@ -19,8 +19,8 @@ abstract class ReorderPage extends Page
 
     public function __construct()
     {
-        $this->gridColumns = config('reorder-widgets.default_settings.gridColumns');
-        $this->showEditButton = config('reorder-widgets.default_settings.showEditButton');
+        $this->gridColumns = config('filament-layout-manager.default_settings.gridColumns');
+        $this->showEditButton = config('filament-layout-manager.default_settings.showEditButton');
     }
 
     /**

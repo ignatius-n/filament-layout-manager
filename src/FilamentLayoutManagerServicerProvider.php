@@ -2,8 +2,8 @@
 
 namespace Asosick\ReorderWidgets;
 
-use Asosick\ReorderWidgets\Commands\ReorderWidgetsCommand;
-use Asosick\ReorderWidgets\Testing\TestsReorderWidgets;
+use Asosick\ReorderWidgets\Commands\FilamentLayoutManagerCommand;
+use Asosick\ReorderWidgets\Testing\TestsFilamentLayoutManager;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
@@ -16,11 +16,11 @@ use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class ReorderWidgetsServiceProvider extends PackageServiceProvider
+class FilamentLayoutManagerServicerProvider extends PackageServiceProvider
 {
-    public static string $name = 'reorder-widgets';
+    public static string $name = 'filament-layout-manager';
 
-    public static string $viewNamespace = 'reorder-widgets';
+    public static string $viewNamespace = 'filament-layout-manager';
 
     public function configurePackage(Package $package): void
     {
@@ -36,7 +36,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('asosick/reorder-widgets');
+                    ->askToStarRepoOnGitHub('asosick/filament-layout-manager');
             });
 
         $configFileName = $package->shortName();
@@ -62,7 +62,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('reorder-component', config('reorder-widgets.ReorderComponent'));
+        Livewire::component('reorder-component', config('filament-layout-manager.LayoutManager'));
 
         // Asset Registration
         FilamentAsset::register(
@@ -82,18 +82,18 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
-                    $file->getRealPath() => base_path("stubs/reorder-widgets/{$file->getFilename()}"),
-                ], 'reorder-widgets-stubs');
+                    $file->getRealPath() => base_path("stubs/filament-layout-manager/{$file->getFilename()}"),
+                ], 'filament-layout-manager-stubs');
             }
         }
 
         // Testing
-        Testable::mixin(new TestsReorderWidgets);
+        Testable::mixin(new TestsFilamentLayoutManager);
     }
 
     protected function getAssetPackageName(): ?string
     {
-        return 'asosick/reorder-widgets';
+        return 'asosick/filament-layout-manager';
     }
 
     /**
@@ -102,9 +102,9 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('reorder-widgets', __DIR__ . '/../resources/dist/components/reorder-widgets.js'),
-            Css::make('reorder-widgets-styles', __DIR__ . '/../resources/dist/reorder-widgets.css'),
-            Js::make('reorder-widgets-scripts', __DIR__ . '/../resources/dist/reorder-widgets.js'),
+            // AlpineComponent::make('filament-layout-manager', __DIR__ . '/../resources/dist/components/filament-layout-manager.js'),
+            Css::make('filament-layout-manager-styles', __DIR__ . '/../resources/dist/filament-layout-manager.css'),
+            Js::make('filament-layout-manager-scripts', __DIR__ . '/../resources/dist/filament-layout-manager.js'),
         ];
     }
 
@@ -114,7 +114,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            ReorderWidgetsCommand::class,
+            FilamentLayoutManagerCommand::class,
         ];
     }
 
@@ -148,7 +148,7 @@ class ReorderWidgetsServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_reorder-widgets_table',
+            'create_filament-layout-manager_table',
         ];
     }
 }

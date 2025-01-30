@@ -1,15 +1,17 @@
 {
-    "name": "asosick/reorder-widgets",
+    "name": "asosick/filament-layout-manager",
     "description": "Package to allow uers to organize widgets on their page themselves",
     "keywords": [
         "asosick",
         "laravel",
-        "reorder-widgets"
+        "filamentphp",
+        "filament",
+        "filament-layout-manager"
     ],
-    "homepage": "https://github.com/asosick/reorder-widgets",
+    "homepage": "https://github.com/asosick/filament-layout-manager",
     "support": {
-        "issues": "https://github.com/asosick/reorder-widgets/issues",
-        "source": "https://github.com/asosick/reorder-widgets"
+        "issues": "https://github.com/asosick/filament-layout-manager/issues",
+        "source": "https://github.com/asosick/filament-layout-manager"
     },
     "license": "MIT",
     "authors": [
@@ -65,10 +67,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Asosick\\ReorderWidgets\\ReorderWidgetsServiceProvider"
+              "FilamentLayoutManagerServiceProvider"
             ],
             "aliases": {
-                "ReorderWidgets": "Asosick\\ReorderWidgets\\Facades\\ReorderWidgets"
+                "ReorderWidgets": "FilamentLayoutManager"
             }
         }
     },

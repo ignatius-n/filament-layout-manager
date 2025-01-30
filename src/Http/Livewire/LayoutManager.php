@@ -11,7 +11,7 @@ use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Livewire\Component;
 
-class ReorderComponent extends Component implements HasActions, HasForms
+class LayoutManager extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -34,9 +34,9 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public function mount(?array $settings = []): void
     {
-        $this->settings = $settings ?? config('reorder-widgets.default_settings');
+        $this->settings = $settings ?? config('filament-layout-manager.default_settings');
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
-        $this->layoutCount = config('reorder-widgets.layoutCount');
+        $this->layoutCount = config('filament-layout-manager.layoutCount');
         $this->load();
         //        $this->ensureMaxColumnsRespected();
     }
@@ -126,17 +126,17 @@ class ReorderComponent extends Component implements HasActions, HasForms
     public function editAction(): Action
     {
         return Action::make('edit')
-            ->label(__('reorder-widgets::reorder-widgets.edit'))
+            ->label(__('filament-layout-manager::filament-layout-manager.edit'))
             ->outlined()
             ->icon(fn () => ! $this->editMode ? 'heroicon-m-lock-closed' : 'heroicon-m-lock-open')
-            ->label(fn () => ! $this->editMode ? __('reorder-widgets::reorder-widgets.unlock') : __('reorder-widgets::reorder-widgets.lock'))
+            ->label(fn () => ! $this->editMode ? __('filament-layout-manager::filament-layout-manager.unlock') : __('filament-layout-manager::filament-layout-manager.lock'))
             ->action(fn () => $this->toggleEditMode());
     }
 
     public function addAction(): Action
     {
         return Action::make('add')
-            ->label(__('reorder-widgets::reorder-widgets.add'))
+            ->label(__('filament-layout-manager::filament-layout-manager.add'))
             ->outlined()
             ->color('success')
             ->icon('heroicon-m-plus')
@@ -146,7 +146,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
     public function saveAction(): Action
     {
         return Action::make('save')
-            ->label(__('reorder-widgets::reorder-widgets.save'))
+            ->label(__('filament-layout-manager::filament-layout-manager.save'))
             ->outlined()
             ->color('danger')
             ->icon('heroicon-m-bookmark-square')
@@ -195,6 +195,6 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public function render()
     {
-        return view('reorder-widgets::reorder-component');
+        return view('filament-layout-manager::layout-manager');
     }
 }

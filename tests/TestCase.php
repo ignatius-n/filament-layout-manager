@@ -2,7 +2,7 @@
 
 namespace Asosick\ReorderWidgets\Tests;
 
-use Asosick\ReorderWidgets\ReorderWidgetsServiceProvider;
+use Asosick\ReorderWidgets\FilamentLayoutManagerServicerProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Filament\Actions\ActionsServiceProvider;
@@ -25,7 +25,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Asosick\\ReorderWidgets\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Asosick\\FilamentLayoutManager\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -44,7 +44,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            ReorderWidgetsServiceProvider::class,
+            FilamentLayoutManagerServicerProvider::class,
         ];
     }
 
@@ -53,7 +53,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'testing');
 
         /*
-        $migration = include __DIR__.'/../database/migrations/create_reorder-widgets_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_filament-layout-manager_table.php.stub';
         $migration->up();
         */
     }

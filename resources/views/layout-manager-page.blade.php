@@ -1,5 +1,5 @@
 {{--<div>--}}
-{{--    {{dd(view('reorder-widgets::reorder-component'))}}--}}
+{{--    {{dd(view('filament-layout-manager::reorder-component'))}}--}}
 {{--</div>--}}
 {{--<x-filament-panels::page>--}}
 {{--    <livewire:reorder-component :settings="$settings"/>--}}

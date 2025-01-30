@@ -1,12 +1,12 @@
 <?php
 
-// config for Asosick/ReorderWidgets
-use Asosick\ReorderWidgets\Http\Livewire\ReorderComponent;
-use Asosick\ReorderWidgets\Pages\ReorderPage;
+// config for Asosick/FilamentLayoutManager
+use Asosick\ReorderWidgets\Http\Livewire\LayoutManager;
+use Asosick\ReorderWidgets\Pages\LayoutManagerPage;
 
 return [
-    'ReorderComponent' => ReorderComponent::class,
-    'RorderPage' => ReorderPage::class,
+    'LayoutManager' => LayoutManager::class,
+    'RorderPage' => LayoutManagerPage::class,
     'layoutCount' => 3,
     'header' => 'Test Page',
     'default_settings' => [

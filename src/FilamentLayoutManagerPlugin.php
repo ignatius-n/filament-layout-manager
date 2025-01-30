@@ -5,11 +5,11 @@ namespace Asosick\ReorderWidgets;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class ReorderWidgetsPlugin implements Plugin
+class LayoutManager implements Plugin
 {
     public function getId(): string
     {
-        return 'reorder-widgets';
+        return 'filament-layout-manager';
     }
 
     public function register(Panel $panel): void

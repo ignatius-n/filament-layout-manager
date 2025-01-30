@@ -2,4 +2,4 @@
 
 namespace Asosick\ReorderWidgets;
 
-class Reorder {}
+class FilamentLayoutManager {}
