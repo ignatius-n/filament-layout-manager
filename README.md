@@ -31,6 +31,11 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="filament-layout-manager-views"
 ```
 
+Optionally, you can publish the translation files using
+```bash
+php artisan vendor:publish --tag="filament-layout-manager-translations"
+```
+
 ## Usage
 Reorderable Dashboards require a new custom page. You can create one as so
 
@@ -96,24 +101,25 @@ Each layout is mapped to a keybinding based on its number:
 * `command+2 | ctrl+2` => layout 2 
 * so forth...
 
-The default number of views can be changed by the `$layoutCount` variable in your page class, or via the configuration file. 
+The default number of views can be changed by the `getLayoutCount()` function in your page class, or via the configuration file. 
 
 ## Customization
-Your reorderable livewire components are wrapped inside a custom livewire component defined by this library which enables user manipulation.
+Your chosen livewire components are wrapped inside a custom livewire component class defined by this library which enables user manipulation.
 
 Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
 wrapper component which encloses the livewire components you chose and enables users to manipulate them.
 
-The wrapper class w `Asosick\FilamentLayoutManager\\Http\Livewire\LayoutManager.php`
+The wrapper class that must be extended to enable customization is `Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager.php`
 
 In order to customize say the colour of one of the header buttons, first:
 
-#### 1)
+#### 1) Publish the configuration file
 ```bash
 php artisan vendor:publish --tag="filament-layout-manager-config"
 ```
-#### 2)
-Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` and extend that class off of `Asosick\FilamentLayoutManager\\Http\Livewire\ReorderComponent.php`
+#### 2) Extend LayoutManager
+Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` 
+and extend that class off of `Asosick\FilamentLayoutManager\Http\Livewire\ReorderComponent.php`
 
 ```php
 <?php
@@ -133,26 +139,26 @@ class CustomReorderComponent extends LayoutManager
     }
 }
 ```
-#### 3)
+#### 3) Update config
 Update your configuration to point to your new custom class.
 ```php
-// config for Asosick/FilamentLayoutManager
+// newly published config file
 return [
-    'LayoutManager' => \App\Livewire\CustomReorderComponent::class,
+    'layout_manager' => \App\Livewire\CustomReorderComponent::class,
     // Other settings 
     // ...
 ];
 ```
 
-I recommend reading the code in ReorderComponent when digging into customization. You'll want to ensure you're still calling the require methods on actions you edit.
+I recommend exploring the code in `LayoutManager` when digging into customization. You'll want to ensure you're still calling the require methods on actions you edit.
 
 
 
 ### Saving Layouts to a Database
-Layouts by default are saved to a user's session ergo they are not persisted to hard storage.
+Layouts by default are saved to a user's session, ergo they are not persisted to hard storage.
 
 In order to save your user's layout to a database (or file, etc.), you'll need to
-1. Override the ReorderComponent as shown above
+1. Override `LayoutManager` as shown above
 2. Implement a new `save()` function to persist the layout
 3. Implement a new `load()` function to load the layout
 
@@ -191,6 +197,54 @@ class CustomReorderComponent extends LayoutManager
         );
     }
 }
+```
+
+## Adding Header Actions
+For now, header actions are not passed through to the LayoutManager component to be placed alongside the lock/unlock and related buttons.
+
+I plan to implement this soon to make things cleaner. A work around for now is to enable `wrapInFilamentPage` within your custom page.
+
+To add in the traditional filament page functionality, headers, header actions, etc., you can enable this setting in your config file or custom class
+
+```php
+namespace App\Filament\Pages;
+
+use App\Filament\Widgets\CompaniesWidget;
+use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
+use Filament\Actions\Action;
+use Filament\Support\Enums\MaxWidth;
+class TestPage extends LayoutManagerPage
+{
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected ?string $maxContentWidth = MaxWidth::class;
+
+    /* Wrap the LayoutManager component in a traditional filament page */
+    public function shouldWrapInFilamentPage(): bool
+    {
+        return true;
+    }
+
+    protected function getComponents(): array
+    {
+        return [
+            CompaniesWidget::class,
+        ];
+    }
+
+    /* Can now use existing filament header actions */
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('my-header-action')
+        ];
+    }
+}
+```
+
+
+```php
+/* In filament-layout-manage.php config file */
+'wrap_in_filament_page' => true,
 ```
 
 [//]: # (This is the contents of the published config file:)

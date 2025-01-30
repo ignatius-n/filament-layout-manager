@@ -147,8 +147,6 @@ class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
      */
     protected function getMigrations(): array
     {
-        return [
-            'create_filament-layout-manager_table',
-        ];
+        return [];
     }
 }

@@ -17,6 +17,11 @@ return [
     'header' => 'Test Page',
 
     /**
+     * Enclose your new page within a filament page.
+     */
+    'wrap_in_filament_page' => false,
+
+    /**
      * Parameters passed from LayoutManagerPage -> LayoutManager to define its properties.
      */
     'settings' => [

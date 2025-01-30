@@ -20,11 +20,14 @@ abstract class LayoutManagerPage extends Page
 
     protected int $layoutCount;
 
+    public bool $wrapInFilamentPage;
+
     public function __construct()
     {
         $this->layoutCount = config('filament-layout-manager.settings.layout_count');
         $this->gridColumns = config('filament-layout-manager.settings.grid_columns');
         $this->showLockButton = config('filament-layout-manager.settings.show_lock_button');
+        $this->wrapInFilamentPage = config('filament-layout-manager.wrap_in_filament_page');
     }
 
     private function unwrapWidgetConfiguration(array $components): array
@@ -80,6 +83,11 @@ abstract class LayoutManagerPage extends Page
     protected function getLayoutCount(): int
     {
         return $this->layoutCount;
+    }
+
+    public function shouldWrapInFilamentPage(): bool
+    {
+        return $this->wrapInFilamentPage;
     }
 
     protected function getViewData(): array
