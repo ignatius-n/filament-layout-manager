@@ -19,6 +19,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
     public ?string $selectedComponent = null;
 
     public int $layoutCount = 3;
+
     public int $currentLayout = 0;
 
     public int $columns = 4;
@@ -37,7 +38,7 @@ class ReorderComponent extends Component implements HasActions, HasForms
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
         $this->layoutCount = config('reorder-widgets.layoutCount');
         $this->load();
-//        $this->ensureMaxColumnsRespected();
+        //        $this->ensureMaxColumnsRespected();
     }
 
     private function ensureMaxColumnsRespected(): void
@@ -150,7 +151,6 @@ class ReorderComponent extends Component implements HasActions, HasForms
             ->action(fn () => $this->saveLayout());
     }
 
-
     /*
      * You may ask why there is no ->action() here to trigger a layout change...
      * For the life of me, I can't get the action to trigger using the recommended method by Filament as shown here..
@@ -168,9 +168,9 @@ class ReorderComponent extends Component implements HasActions, HasForms
             ->label(fn (array $arguments) => $id + 1)
             ->outlined()
             ->keyBindings(function (array $arguments) use ($id) {
-                return ['command+'.$id+1, 'ctrl+'.$id+1];
+                return ['command+' . $id + 1, 'ctrl+' . $id + 1];
             })
-            ->color(fn (array $arguments) =>$id === $this->currentLayout ? 'primary' : 'secondary');
+            ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
     }
 
     public function selectLayout($index): void
