@@ -1,6 +1,6 @@
 {{-- resources/views/livewire/dynamic-grid.blade.php --}}
 
-<div x-data="{ sortable: null }" class="p-4">
+<div x-data="{ sortable: null }" class="p-1">
     {{-- Edit Mode Toggle --}}
     <div class="mb-4 flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
@@ -16,31 +16,31 @@
 
             @endif
             <div class="px-1 hidden md:flex">
-            @if($editMode)
-                <x-filament::input.wrapper class="px-1">
-                    <x-filament::input.select wire:model="selectedComponent">
-                        @foreach(Arr::get($settings, 'selectOptions', []) as $key => $value)
-                            <option value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </x-filament::input.select>
-                </x-filament::input.wrapper>
-                <div class="px-1">{{ $this->addAction }}</div>
+                @if($editMode)
+                    <x-filament::input.wrapper class="px-1">
+                        <x-filament::input.select wire:model="selectedComponent">
+                            @foreach(Arr::get($settings, 'selectOptions', []) as $key => $value)
+                                <option value="{{$key}}">{{$value}}</option>
+                            @endforeach
+                        </x-filament::input.select>
+                    </x-filament::input.wrapper>
+                    <div class="px-1">{{ $this->addAction }}</div>
 
-                    <div class="px-0.5">{{ $this->saveAction }}</div>
-                <x-filament-actions::modals />
+                        <div class="px-0.5">{{ $this->saveAction }}</div>
+                    <x-filament-actions::modals />
 
-            @endif
-                {{$this->editAction}}
+                @endif
+                    {{$this->editAction}}
             </div>
         </div>
     </div>
 
 
-    <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
+    <div class="sm:grid block md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
         @foreach($components[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
-                 class="col-span-{{ $component['cols'] }}"
+                 class="p-1"
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 @if($editMode)
