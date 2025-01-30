@@ -8,6 +8,17 @@
         </h1>
         <div class="flex justify-end">
             {{-- Add/Save Buttons (only in edit mode) --}}
+            @if($layoutCount > 1)
+                @for($i = 0; $i<$layoutCount; $i++)
+                    <x-filament::button
+                        outlined
+                        wire:click="selectLayout({{$i}})"
+                        :color="$currentLayout === $i ? 'primary' : 'secondary'"
+                    >
+                        {{$i + 1}}
+                    </x-filament::button>
+                @endfor
+            @endif
             @if($editMode)
                 <x-filament::input.wrapper>
                     <x-filament::input.select wire:model="selectedComponent">
@@ -29,7 +40,7 @@
 
 
     <div class="grid md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
-        @foreach($components as $id => $component)
+        @foreach($components[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
                  class="col-span-{{ $component['cols'] }}"

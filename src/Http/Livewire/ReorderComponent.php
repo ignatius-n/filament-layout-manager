@@ -18,6 +18,9 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public ?string $selectedComponent = null;
 
+    public int $layoutCount = 3;
+    public int $currentLayout = 1;
+
     public int $columns = 4;
 
     protected $listeners = ['updateLayout'];
@@ -28,15 +31,16 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
     public array $settings = [];
 
-    public function mount(?array $settings = [])
+    public function mount(?array $settings = []): void
     {
         $this->settings = $settings ?? config('reorder-widgets.default_settings');
         $this->selectedComponent = Arr::get($settings, 'components.0', null);
+        $this->layoutCount = config('reorder-widgets.layoutCount');
         $this->load();
-        $this->ensureMaxColumnsRespected();
+//        $this->ensureMaxColumnsRespected();
     }
 
-    private function ensureMaxColumnsRespected()
+    private function ensureMaxColumnsRespected(): void
     {
         if (! $this->components) {
             return;
@@ -53,50 +57,50 @@ class ReorderComponent extends Component implements HasActions, HasForms
         $this->components = session('grid_layout', []);
     }
 
-    public function toggleEditMode()
+    public function toggleEditMode(): void
     {
         $this->editMode = ! $this->editMode;
     }
 
-    public function toggleSize($id)
+    public function toggleSize($id): void
     {
         if ($this->editMode) {
-            $cols = $this->components[$id]['cols'];
-            $this->components[$id]['cols'] = $cols === $this->columns ? 1 : $this->columns;
+            $cols = $this->components[$this->currentLayout][$id]['cols'];
+            $this->components[$this->currentLayout][$id]['cols'] = $cols === $this->columns ? 1 : $this->columns;
         }
     }
 
-    public function increaseSize($id)
+    public function increaseSize($id): void
     {
         if ($this->editMode) {
-            $cols = $this->components[$id]['cols'];
-            $this->components[$id]['cols'] = min($this->columns, $cols + 1);
+            $cols = $this->components[$this->currentLayout][$id]['cols'];
+            $this->components[$this->currentLayout][$id]['cols'] = min($this->columns, $cols + 1);
         }
     }
 
-    public function decreaseSize($id)
+    public function decreaseSize($id): void
     {
         if ($this->editMode) {
-            $cols = $this->components[$id]['cols'];
-            $this->components[$id]['cols'] = max(1, $cols - 1);
+            $cols = $this->components[$this->currentLayout][$id]['cols'];
+            $this->components[$this->currentLayout][$id]['cols'] = max(1, $cols - 1);
         }
     }
 
-    public function addComponent()
+    public function addComponent(): void
     {
-        $this->components[uniqid()] = [
+        $this->components[$this->currentLayout][uniqid()] = [
             'cols' => 1,
             'type' => $this->selectedComponent,
             'event_id' => count($this->components) + 1,
         ];
     }
 
-    public function removeComponent($componentId)
+    public function removeComponent($componentId): void
     {
         unset($this->components[$componentId]);
     }
 
-    public function updateLayout($orderedIds)
+    public function updateLayout($orderedIds): void
     {
         if (! isset($orderedIds) || ! is_array($orderedIds)) {
             return;
@@ -104,12 +108,12 @@ class ReorderComponent extends Component implements HasActions, HasForms
 
         $sortedData = [];
         foreach ($orderedIds as $key) {
-            if (isset($this->components[$key])) {
-                $sortedData[$key] = $this->components[$key];
+            if (isset($this->components[$this->currentLayout][$key])) {
+                $sortedData[$this->currentLayout][$key] = $this->components[$this->currentLayout][$key];
             }
         }
         if (count($sortedData) === count($this->components)) {
-            $this->components = $sortedData;
+            $this->components = array_merge($sortedData, $this->components);
         }
     }
 
@@ -144,6 +148,12 @@ class ReorderComponent extends Component implements HasActions, HasForms
             ->color('danger')
             ->icon('heroicon-m-bookmark-square')
             ->action(fn () => $this->saveLayout());
+    }
+
+
+    public function selectLayout(int $layoutNumber): void
+    {
+        $this->currentLayout = $layoutNumber;
     }
 
     protected function save(): void
