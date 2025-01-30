@@ -6,32 +6,29 @@
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
             {{config('reorder-widgets.header')}}
         </h1>
-        <div class="flex justify-end">
-            {{-- Add/Save Buttons (only in edit mode) --}}
+        <div class="flex justify-end space-x-2">
             @if($layoutCount > 1)
-                @for($i = 0; $i<$layoutCount; $i++)
-                    <div wire:click="selectLayout({{$i}})">
-                        {{ $this->selectLayoutAction($i) }}
-                    </div>
-                @endfor
-
+                    @for($i = 0; $i<$layoutCount; $i++)
+                        <div wire:click="selectLayout({{$i}})">
+                            {{ $this->selectLayoutAction($i) }}
+                        </div>
+                    @endfor
             @endif
             @if($editMode)
-                <x-filament::input.wrapper>
+                <x-filament::input.wrapper class="px-1">
                     <x-filament::input.select wire:model="selectedComponent">
                         @foreach(Arr::get($settings, 'selectOptions', []) as $key => $value)
                             <option value="{{$key}}">{{$value}}</option>
                         @endforeach
                     </x-filament::input.select>
                 </x-filament::input.wrapper>
-                {{ $this->addAction }}
+                <div class="px-1">{{ $this->addAction }}</div>
 
-                {{ $this->saveAction }}
+                    <div class="px-0.5">{{ $this->saveAction }}</div>
                 <x-filament-actions::modals />
 
             @endif
-
-            {{$this->editAction}}
+                <div class="px-1">{{$this->editAction}}</div>
         </div>
     </div>
 
@@ -41,10 +38,8 @@
             <div wire:key="grid-item-{{$currentLayout}}-{{ $id }}"
                  data-id="{{ $id }}"
                  class="col-span-{{ $component['cols'] }}"
-{{--                 class="relative group transition-all h-full"--}}
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
-                {{-- Edit Mode Controls --}}
                 @if($editMode)
                     <div class="opacity-75 hover:opacity-100 transition-opacity flex gap-1 p-2">
                         <button wire:click="removeComponent('{{ $id }}')">
