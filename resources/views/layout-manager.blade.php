@@ -24,8 +24,8 @@
                 @if($editMode)
                     <x-filament::input.wrapper class="px-1">
                         <x-filament::input.select wire:model="selectedComponent">
-                            @foreach(Arr::get($settings, 'select_options', []) as $key => $value)
-                                <option value="{{$key}}">{{$value}}</option>
+                            @foreach(Arr::get($settings, 'select_options', []) as $index => $value)
+                                <option value="{{$index}}">{{$value}}</option>
                             @endforeach
                         </x-filament::input.select>
                     </x-filament::input.wrapper>

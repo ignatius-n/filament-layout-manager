@@ -46,18 +46,14 @@ abstract class LayoutManagerPage extends Page
     }
 
     /**
-     * To override, provide an associative array of key->values for the drop down
-     * return [classpath (selection key) => select_option_text, ... ]
+     * To override, provide an array of drop down names in the order you specified in getComponents())
      */
     protected function getComponentSelectOptions(): array
     {
         return collect($this->getComponents())
-            ->mapWithKeys(function ($component) {
+            ->map(function ($component) {
                 $component_name = $component instanceof WidgetConfiguration ? $component->widget : $component;
-
-                return [
-                    $component_name => substr(strrchr($component_name, '\\'), 1),
-                ];
+                return substr(strrchr($component_name, '\\'), 1);
             })
             ->toArray();
     }

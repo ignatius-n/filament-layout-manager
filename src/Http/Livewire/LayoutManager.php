@@ -42,7 +42,7 @@ class LayoutManager extends Component implements HasActions, HasForms
         $this->layoutCount = $this->settings['layout_count'] ?? config('filament-layout-manager.settings.layout_count');
         $this->columns = $this->settings['grid_columns'] ?? config('filament-layout-manager.settings.grid_columns');
         $this->showLockButton = $this->settings['show_lock_button'] ?? config('filament-layout-manager.settings.show_lock_button');
-        $this->selectedComponent = Arr::get($settings, 'components.0', null);
+        $this->selectedComponent = 0;
         $this->load();
         $this->refocusToLayoutInUse();
     }
@@ -101,7 +101,7 @@ class LayoutManager extends Component implements HasActions, HasForms
         }
         $this->container[$this->currentLayout][uniqid()] = [
             'cols' => 1,
-            'type' => $this->selectedComponent,
+            'type' => $this->settings['components'][$this->selectedComponent],
             'event_id' => count($this->container) + 1,
         ];
     }
