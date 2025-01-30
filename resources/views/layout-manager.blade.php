@@ -15,6 +15,7 @@
                 @endfor
 
             @endif
+            <div class="px-1 hidden md:flex">
             @if($editMode)
                 <x-filament::input.wrapper class="px-1">
                     <x-filament::input.select wire:model="selectedComponent">
@@ -29,7 +30,8 @@
                 <x-filament-actions::modals />
 
             @endif
-                <div class="px-1">{{$this->editAction}}</div>
+                {{$this->editAction}}
+            </div>
         </div>
     </div>
 
