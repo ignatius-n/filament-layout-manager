@@ -5,11 +5,9 @@ namespace Asosick\FilamentLayoutManager\Http\Livewire;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -171,7 +169,7 @@ class LayoutManager extends Component implements HasActions, HasForms
         return Action::make('selectLayout')
             ->label(fn (array $arguments) => $arguments['id'] + 1)
             ->outlined()
-            ->keyBindings(function (array $arguments)  {
+            ->keyBindings(function (array $arguments) {
                 return ['command+' . ($arguments['id'] + 1), 'ctrl+' . ($arguments['id'] + 1)];
             })
             ->color(fn (array $arguments) => $arguments['id'] === $this->currentLayout ? 'primary' : 'secondary')
