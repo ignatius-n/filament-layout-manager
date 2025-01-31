@@ -60,7 +60,7 @@ class LayoutManager extends Component implements HasActions, HasForms
             return;
         }
         $i = 0;
-        while ($i >= 0) {
+        while ($i < count($this->container)) {
             if (count($this->container[$i] ?? []) != 0) {
                 $this->currentLayout = $i;
 
