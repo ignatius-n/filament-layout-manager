@@ -1,6 +1,7 @@
 {{-- resources/views/livewire/dynamic-grid.blade.php --}}
 
 <div x-data="{ sortable: null }"
+{{--  Causes some styling issues due to order of loading? x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-layout-manager-styles', package:'asosick/filament-layout-manager'))]"--}}
      x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('filament-layout-manager-scripts', package:'asosick/filament-layout-manager'))]"
     >
     {{-- Edit Mode Toggle --}}
