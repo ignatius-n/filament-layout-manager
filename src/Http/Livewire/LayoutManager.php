@@ -56,7 +56,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     private function refocusToLayoutInUse(): void
     {
-        if ($this->container[$this->currentLayout]) {
+        if ($this->container[$this->currentLayout] ?? []) {
             return;
         }
         $i = 0;
