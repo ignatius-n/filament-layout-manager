@@ -104,6 +104,26 @@ class TestPage extends LayoutManagerPage
 }
 ```
 
+### Renaming Selection Options
+The names associated with your selected components can be changed by overriding the `getComponentSelectOptions` method in your custom page. Be sure to order the array you provided to match the order of the components you provided
+
+```php
+class TestPage extends LayoutManagerPage
+{
+    protected function getComponents(): array
+    {
+        return [
+            CompaniesWidget::class, //Default select option is `CompaniesWidget`
+        ];
+    }
+
+    protected function getComponentSelectOptions(): array
+    {
+        return ['My Company Widget'];
+    }
+}
+```
+
 ## Multiple Layouts
 Users are able to define multiple layouts they can switch between.
 
@@ -117,7 +137,7 @@ The default number of views can be changed by the `getLayoutCount()` function in
 ## Customization
 Your chosen livewire components are wrapped inside a custom livewire component class defined by this library which enables user manipulation.
 
-Do not confuse this with the Page class or its blade view as defined above, that is not a livewire component, and is only responsible for rendering the
+Do not confuse this with the Page class or its blade view as defined above - that is not a livewire component, and is only responsible for rendering the
 wrapper component which encloses the livewire components you chose and enables users to manipulate them.
 
 The wrapper class that must be extended to enable customization is `Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager.php`
