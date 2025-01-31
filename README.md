@@ -78,10 +78,9 @@ class TestPage extends LayoutManagerPage
     {
         // Replace with your chosen components
         return [
+            LivewireComponent::class,
             CompaniesWidget::class,
             BlogPostsChart::class,
-            StatsOverview::class,
-            ArticlePostsChart::class,
         ];
     }
 }
@@ -212,37 +211,59 @@ class CustomLayoutManager extends LayoutManager
 }
 ```
 
-## Adding Header Actions
-For now, header actions are not passed through to the LayoutManager component to be placed alongside the lock/unlock and related buttons.
+### Adding Header Actions
+Header actions can be add to the right of the 'Lock' button by overriding the `getHeaderActions()` method in your custom LayoutManager class (see above to create one).
 
-I plan to implement this soon to make things cleaner. A work around for now is to enable `wrapInFilamentPage` within your custom page.
+Please see the example below on how to add custom actions to your LayoutManager. 
 
-To add in the traditional filament page functionality, headers, header actions, etc., you can enable this setting in your config file or custom class
+When using actions, you must create a function with the same name as your action in your `LayoutManager` class so livewire can understand where to execute its methods. This is inline with the filament documentation here for adding actions to livewire pages [(see here)](https://filamentphp.com/docs/3.x/actions/adding-an-action-to-a-livewire-component)
 
 ```php
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\CompaniesWidget;
 use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
 use Filament\Actions\Action;
-use Filament\Support\Enums\MaxWidth;
+use Illuminate\Support\Facades\Log;
+
 class TestPage extends LayoutManagerPage
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    protected ?string $maxContentWidth = MaxWidth::class;
+    public function getHeaderActions(): array
+    {
+        return [
+            Action::make('hello'),
+            Action::make('goodbye'),
+        ];
+    }
 
+    /* Runs when `hello` button is pressed */
+    public function hello() {
+        Log::info('You said hello!');
+    }
+    /* Runs when `goodbye` button is pressed */
+    public function goodbye(): void
+    {
+        Log::info('You said goodbye!');
+    }
+}
+```
+
+
+#### (Optional) Wrapping in a FilamentPHP page
+By default, the LayoutManagerPage is not rendered with the traditional FilamentPHP page tags. If, for some reason, you need everything wrapped in a FilamentPHP page, you can enable that as so:
+
+```php
+namespace App\Filament\Pages;
+use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
+use Filament\Actions\Action;
+
+class TestPage extends LayoutManagerPage
+{
     /* Wrap the LayoutManager component in a traditional filament page */
     public function shouldWrapInFilamentPage(): bool
     {
         return true;
     }
-
-    protected function getComponents(): array
-    {
-        return [
-            CompaniesWidget::class,
-        ];
-    }
+    
 
     /* Can now use existing filament header actions */
     protected function getHeaderActions(): array
@@ -253,8 +274,8 @@ class TestPage extends LayoutManagerPage
     }
 }
 ```
-or...
 
+or
 ```php
 /* In filament-layout-manage.php config file */
 'wrap_in_filament_page' => true,

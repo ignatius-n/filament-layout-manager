@@ -1,8 +1,8 @@
 {{-- resources/views/livewire/dynamic-grid.blade.php --}}
 
-<div x-data="{ sortable: null }" class="p-1">
+<div x-data="{ sortable: null }" class="">
     {{-- Edit Mode Toggle --}}
-    <div class="mb-4 flex justify-between w-full gap-y-8 py-8">
+    <div class="flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
             {{config('filament-layout-manager.header')}}
         </h1>
@@ -13,12 +13,9 @@
             @if($editMode || $usedLayouts > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
                     @if($editMode || count($container[$i] ?? [])>0)
-                        <div wire:click="selectLayout({{$i}})">
-                            {{ $this->selectLayoutAction($i) }}
-                        </div>
+                        {{ ($this->selectLayoutAction)(['id' => $i]) }}
                     @endif
                 @endfor
-
             @endif
             <div class="px-1 hidden md:flex">
                 @if($editMode)
@@ -36,6 +33,9 @@
                 @if($showLockButton)
                     {{$this->editAction}}
                 @endif
+                @foreach($this->getHeaderActions() as $headerAction)
+                    {{$headerAction}}
+                @endforeach
             </div>
         </div>
     </div>
@@ -73,11 +73,11 @@
                         </div>
                     </div>
                 @endif
-                    @livewire(
-                        $component['type']['widget_class'],
-                        $component['type']['data'],
-                        key("{$component['type']['widget_class']}-{$id}"),
-                    )
+                @livewire(
+                    $component['type']['widget_class'],
+                    $component['type']['data'],
+                    key("{$component['type']['widget_class']}-{$id}"),
+                )
             </div>
         @endforeach
     </div>

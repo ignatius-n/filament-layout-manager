@@ -5,9 +5,11 @@ namespace Asosick\FilamentLayoutManager\Http\Livewire;
 use Filament\Actions\Action;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -113,11 +115,6 @@ class LayoutManager extends Component implements HasActions, HasForms
         unset($this->container[$this->currentLayout][$componentId]);
     }
 
-    public function selectLayout($index): void
-    {
-        $this->currentLayout = $index;
-    }
-
     public function updateLayout($orderedIds): void
     {
         if (! $this->editMode || ! isset($orderedIds) || ! is_array($orderedIds)) {
@@ -164,26 +161,21 @@ class LayoutManager extends Component implements HasActions, HasForms
             ->action(fn () => $this->saveLayout());
     }
 
-    /*
-     * You may ask why there is no ->action() here to trigger a layout change...
-     * For the life of me, I can't get the action to trigger using the recommended method by Filament as shown here..
-     * https://filamentphp.com/docs/3.x/actions/adding-an-action-to-a-livewire-component
-     * I've used an alternative method of passing the $id to the function below and that didn't work either.
-     * It works in my other Actions in this class...
-     *
-     * Unless I've missed something, this a bug? Regardless, the selectLayoutAction is wrapped in a div with a wire click
-     * method to call the selectLayout method and change $this->currentLayout.
-     * Not ideal. Apologies if you're trying to override the action here and it's unclear.
-     */
-    public function selectLayoutAction($id): Action
+    public function getHeaderActions(): array
     {
-        return Action::make('select_layout')
-            ->label(fn (array $arguments) => $id + 1)
+        return [];
+    }
+
+    public function selectLayoutAction(): Action
+    {
+        return Action::make('selectLayout')
+            ->label(fn (array $arguments) => $arguments['id'] + 1)
             ->outlined()
-            ->keyBindings(function (array $arguments) use ($id) {
-                return ['command+' . ($id + 1), 'ctrl+' . ($id + 1)];
+            ->keyBindings(function (array $arguments)  {
+                return ['command+' . ($arguments['id'] + 1), 'ctrl+' . ($arguments['id'] + 1)];
             })
-            ->color(fn (array $arguments) => $id === $this->currentLayout ? 'primary' : 'secondary');
+            ->color(fn (array $arguments) => $arguments['id'] === $this->currentLayout ? 'primary' : 'secondary')
+            ->action(fn ($arguments) => $this->currentLayout = $arguments['id']);
     }
 
     public function saveLayout(): void
