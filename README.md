@@ -2,12 +2,10 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
-### BETA PRODUCT
 
 
-## Allow users to customize and save their own FilamentPHP pages composed of livewire components
+### Allow users to create & customize their own FilamentPHP pages composed of Livewire components
 ### Demo
 ![demo.gif](demo.gif)
 ## Installation
@@ -194,7 +192,7 @@ class CustomLayoutManager extends LayoutManager
     {
         $user = auth()->user();
         $user->settings = [
-            'components' => $this->container
+            'container' => $this->container
         ];
         $user->save();
     }
@@ -204,7 +202,7 @@ class CustomLayoutManager extends LayoutManager
         $user = auth()->user();
         $this->container = Arr::get(
             json_decode($user->settings, true),
-            'components',
+            'container',
             []
         );
     }

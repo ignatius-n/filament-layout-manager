@@ -1,12 +1,14 @@
 {
     "name": "asosick/filament-layout-manager",
-    "description": "Allow users to customize and save their own FilamentPHP pages composed of livewire components",
+    "description": "Allow users to create & customize their own FilamentPHP pages composed of Livewire components",
     "keywords": [
         "asosick",
         "laravel",
         "filamentphp",
         "filament",
-        "filament-layout-manager"
+        "filament-layout-manager",
+        "php",
+        "livewire"
     ],
     "homepage": "https://github.com/asosick/filament-layout-manager",
     "support": {
