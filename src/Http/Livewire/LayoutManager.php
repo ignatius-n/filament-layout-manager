@@ -35,10 +35,13 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public int $columns;
 
+    public string $heading;
+
     public bool $showLockButton;
 
     public function mount(?array $settings = []): void
     {
+        $this->heading = $settings['heading'] ?? config('filament-layout-manager.heading');
         $this->settings = $settings ?? config('filament-layout-manager.settings');
         $this->layoutCount = $this->settings['layout_count'] ?? config('filament-layout-manager.settings.layout_count');
         $this->columns = $this->settings['grid_columns'] ?? config('filament-layout-manager.settings.grid_columns');

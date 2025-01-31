@@ -5,7 +5,7 @@ namespace Asosick\FilamentLayoutManager;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class LayoutManager implements Plugin
+class FilamentLayoutManagerPlugin implements Plugin
 {
     public function getId(): string
     {

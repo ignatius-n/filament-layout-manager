@@ -14,7 +14,7 @@ return [
     /**
      * Header of LayoutManager Page
      */
-    'header' => 'Test Page',
+    'heading' => 'Test Page',
 
     /**
      * Enclose your new page within a filament page.

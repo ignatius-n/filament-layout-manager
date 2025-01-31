@@ -94,6 +94,7 @@ abstract class LayoutManagerPage extends Page
     {
         return [
             'settings' => [
+                'heading' => $this->getHeading(),
                 'components' => $this->unwrapWidgetConfiguration($this->getComponents()),
                 'select_options' => $this->getComponentSelectOptions(),
                 'grid_columns' => $this->getGridColumns(),
