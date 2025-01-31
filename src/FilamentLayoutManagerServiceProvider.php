@@ -2,7 +2,6 @@
 
 namespace Asosick\FilamentLayoutManager;
 
-use Asosick\FilamentLayoutManager\Commands\FilamentLayoutManagerCommand;
 use Asosick\FilamentLayoutManager\Testing\TestsFilamentLayoutManager;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -62,7 +61,7 @@ class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('reorder-component', config('filament-layout-manager.layout_manager'));
+        Livewire::component('layout-manager', config('filament-layout-manager.layout_manager'));
 
         // Asset Registration
         FilamentAsset::register(
@@ -114,7 +113,7 @@ class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            FilamentLayoutManagerCommand::class,
+
         ];
     }
 

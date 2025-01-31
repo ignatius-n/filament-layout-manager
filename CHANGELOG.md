@@ -2,6 +2,6 @@
 
 All notable changes to `filament-layout-manager` will be documented in this file.
 
-## 1.0.0 - 202X-XX-XX
+## v1.0.0
 
-- initial release
+- Initial release

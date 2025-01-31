@@ -31,15 +31,14 @@
                     <x-filament-actions::modals />
                 @endif
                 @if($showLockButton)
-                        <div class="px-0.5">{{$this->editAction}}</div>
+                    <div class="px-0.5">{{$this->editAction}}</div>
                 @endif
                 @foreach($this->getHeaderActions() as $headerAction)
-                        <div class="px-0.5">{{$headerAction}}</div>
+                    <div class="px-0.5">{{$headerAction}}</div>
                 @endforeach
             </div>
         </div>
     </div>
-
 
     <div class="sm:grid block md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
         @foreach($container[$this->currentLayout] ?? [] as $id => $component)
@@ -53,21 +52,21 @@
                         <button wire:click="removeComponent('{{ $id }}')">
                             ✕
                         </button>
-                            <button
-                                wire:click="toggleSize('{{ $id }}')"
-                                class="p-1 text-4sm">
-                                ↔
-                            </button>
-                            <button
-                                wire:click="increaseSize('{{ $id }}')"
-                                class="p-1 text-4lg">
-                                +
-                            </button>
-                            <button
-                                wire:click="decreaseSize('{{ $id }}')"
-                                class="p-1 text-4sm">
-                                -
-                            </button>
+                        <button
+                            wire:click="toggleSize('{{ $id }}')"
+                            class="p-1 text-4sm">
+                            ↔
+                        </button>
+                        <button
+                            wire:click="increaseSize('{{ $id }}')"
+                            class="p-1 text-4lg">
+                            +
+                        </button>
+                        <button
+                            wire:click="decreaseSize('{{ $id }}')"
+                            class="p-1 text-4sm">
+                            -
+                        </button>
                         <div class="handle cursor-move  bg-black rounded-full p-1 shadow text-4xl">
                             ⤯
                         </div>
@@ -85,7 +84,7 @@
 
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>--}}
     <script>
         let sortableInstance;
 
@@ -102,7 +101,6 @@
                 el.appendChild(endMorphMarker);
             }
         }
-
 
         function initializeSortable() {
             const grid = document.querySelector('[x-ref="grid"]');

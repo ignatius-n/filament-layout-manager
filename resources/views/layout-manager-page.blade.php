@@ -1,9 +1,9 @@
 <div>
     @if($this->shouldWrapInFilamentPage())
         <x-filament-panels::page>
-            <livewire:reorder-component :settings="$settings ?? []"/>
+            <livewire:layout-manager :settings="$settings ?? []"/>
         </x-filament-panels::page>
     @else
-        <livewire:reorder-component :settings="$settings ?? []"/>
+        <livewire:layout-manager :settings="$settings ?? []"/>
     @endif
 </div>

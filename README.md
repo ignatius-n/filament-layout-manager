@@ -34,12 +34,12 @@ php artisan vendor:publish --tag="filament-layout-manager-translations"
 ```
 
 ## Usage
-Reorderable Dashboards require a new custom page. You can create one as so
+Filament Layout Manager requires a new custom page. You can create one as so
 
 ### 1. Generate a new page
 ```bash
+# Replace TestPage with your new page's name
 php artisan make:filament-page TestPage
-#Replace TestPage with your new page's name
 ```
 
 ### 2. Extend your page from `LayoutManagerPage`
@@ -129,8 +129,8 @@ In order to customize say the colour of one of the header buttons, first:
 php artisan vendor:publish --tag="filament-layout-manager-config"
 ```
 #### 2) Extend LayoutManager
-Create a new class in your application called (for example) `App\Livewire\CustomReorderComponent.php` 
-and extend that class off of `Asosick\FilamentLayoutManager\Http\Livewire\ReorderComponent.php`
+Create a new class in your application called (for example) `App\Livewire\CustomLayoutManager.php` 
+and extend that class off of `Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager.php`
 
 ```php
 <?php
