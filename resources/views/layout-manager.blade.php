@@ -31,10 +31,10 @@
                     <x-filament-actions::modals />
                 @endif
                 @if($showLockButton)
-                    {{$this->editAction}}
+                        <div class="px-0.5">{{$this->editAction}}</div>
                 @endif
                 @foreach($this->getHeaderActions() as $headerAction)
-                    {{$headerAction}}
+                        <div class="px-0.5">{{$headerAction}}</div>
                 @endforeach
             </div>
         </div>

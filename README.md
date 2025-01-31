@@ -212,37 +212,26 @@ class CustomLayoutManager extends LayoutManager
 ```
 
 ### Adding Header Actions
-Header actions can be add to the right of the 'Lock' button by overriding the `getHeaderActions()` method in your custom LayoutManager class (see above to create one).
+Header actions can be add to the right of the 'Lock' button by overriding the `getHeaderActions()` method in your custom LayoutManager (*NOT your custom page*) class (see above to create one).
 
-Please see the example below on how to add custom actions to your LayoutManager. 
-
-When using actions, you must create a function with the same name as your action in your `LayoutManager` class so livewire can understand where to execute its methods. This is inline with the filament documentation here for adding actions to livewire pages [(see here)](https://filamentphp.com/docs/3.x/actions/adding-an-action-to-a-livewire-component)
-
+Please see the example below on how to add custom actions to your LayoutManager.
 ```php
-namespace App\Filament\Pages;
+namespace App\Livewire;
 
-use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
+use Asosick\FilamentLayoutManager\Http\Livewire\LayoutManager;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\Log;
 
-class TestPage extends LayoutManagerPage
+class CustomLayoutManager extends LayoutManager
 {
     public function getHeaderActions(): array
     {
         return [
-            Action::make('hello'),
-            Action::make('goodbye'),
+            Action::make('hello')
+                ->action(fn () => Log::info('hello world!')),
+            Action::make('goodbye')
+                ->action(fn () => Log::info('goodbye world!')),
         ];
-    }
-
-    /* Runs when `hello` button is pressed */
-    public function hello() {
-        Log::info('You said hello!');
-    }
-    /* Runs when `goodbye` button is pressed */
-    public function goodbye(): void
-    {
-        Log::info('You said goodbye!');
     }
 }
 ```
@@ -280,6 +269,7 @@ or
 /* In filament-layout-manage.php config file */
 'wrap_in_filament_page' => true,
 ```
+You may need to override some filament css hooks to get the spacing right for what you need.
 
 [//]: # (This is the contents of the published config file:)
 
