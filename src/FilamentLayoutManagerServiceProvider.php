@@ -103,7 +103,7 @@ class FilamentLayoutManagerServiceProvider extends PackageServiceProvider
         return [
             // AlpineComponent::make('filament-layout-manager', __DIR__ . '/../resources/dist/components/filament-layout-manager.js'),
             Css::make('filament-layout-manager-styles', __DIR__ . '/../resources/dist/filament-layout-manager.css'),
-            Js::make('filament-layout-manager-scripts', __DIR__ . '/../resources/dist/filament-layout-manager.js'),
+            Js::make('filament-layout-manager-scripts', __DIR__ . '/../resources/dist/filament-layout-manager.js')->loadedOnRequest(),
         ];
     }
 

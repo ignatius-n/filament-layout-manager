@@ -7,4 +7,7 @@ module.exports = {
         './resources/views/filament/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
+    safelist: [
+        { pattern: /grid-cols-\d+/, variants: ['sm', 'md', 'lg', 'xl'] }
+    ],
 }
