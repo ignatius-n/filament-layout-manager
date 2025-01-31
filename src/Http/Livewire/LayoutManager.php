@@ -21,7 +21,7 @@ class LayoutManager extends Component implements HasActions, HasForms
     protected $listeners = ['updateLayout'];
 
     #[Url(as: 'l')]
-    public ?int $currentLayout = 0;
+    public int $currentLayout = 0;
 
     public array $container = [];
 
@@ -56,14 +56,17 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     private function refocusToLayoutInUse(): void
     {
-        $i = $this->currentLayout;
+        if($this->container[$this->currentLayout]){
+            return;
+        }
+        $i = 0;
         while ($i >= 0) {
             if (count($this->container[$i] ?? []) != 0) {
                 $this->currentLayout = $i;
 
                 return;
             }
-            $i = $i - 1;
+            $i = $i + 1;
         }
         $this->currentLayout = 0;
     }
