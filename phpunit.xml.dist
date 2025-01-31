@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="Asosick Test Suite">
+        <testsuite name="Filament Layout Manager Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

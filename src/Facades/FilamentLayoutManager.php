@@ -11,6 +11,6 @@ class FilamentLayoutManager extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Asosick\FilamentLayoutManager\FilamentLayoutManager::class;
+        return \Asosick\FilamentLayoutManager\LayoutManager::class;
     }
 }

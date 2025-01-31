@@ -63,7 +63,7 @@ abstract class LayoutManagerPage extends Page
     }
 
     /**
-     * @return array<Component>
+     * @return array<Component|WidgetConfiguration>
      */
     protected function getComponents(): array
     {
