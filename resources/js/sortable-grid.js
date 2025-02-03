@@ -21,7 +21,6 @@ function initializeSortable() {
             ghostClass: 'opacity-50',
             onEnd: (evt) => {
                 const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
-                console.log(orderedIds);
                 moveEndMorphMarker(grid);
                 Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
             }

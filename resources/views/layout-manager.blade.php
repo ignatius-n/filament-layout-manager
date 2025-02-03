@@ -4,7 +4,6 @@
 {{--  Causes some styling issues due to order of loading? x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-layout-manager-styles', package:'asosick/filament-layout-manager'))]"--}}
      x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('filament-layout-manager-scripts', package:'asosick/filament-layout-manager'))]"
     >
-    {{-- Edit Mode Toggle --}}
     <div class="flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
             {{$heading}}
@@ -31,7 +30,6 @@
                     </x-filament::input.wrapper>
                     <div class="px-1">{{ $this->addAction }}</div>
                     <div class="px-0.5">{{ $this->saveAction }}</div>
-                    <x-filament-actions::modals />
                 @endif
                 @if($showLockButton)
                     <div class="px-0.5">{{$this->editAction}}</div>
@@ -39,6 +37,7 @@
                 @foreach($this->getHeaderActions() as $headerAction)
                     <div class="px-0.5">{{$headerAction}}</div>
                 @endforeach
+                <x-filament-actions::modals />
             </div>
         </div>
     </div>
@@ -51,27 +50,28 @@
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 @if($editMode)
-                    <div class="opacity-75 hover:opacity-100 transition-opacity flex gap-1 p-2">
-                        <button wire:click="removeComponent('{{ $id }}')">
-                            ✕
+                    <div class="flex gap-1 px-2 py-1">
+                        <button wire:click="removeComponent('{{ $id }}')"
+                            class="text-4lg">
+                            ⅹ
                         </button>
                         <button
                             wire:click="toggleSize('{{ $id }}')"
-                            class="p-1 text-4sm">
-                            ↔
+                            class="p-1 text-4lg">
+                            {{$component['cols'] === $columns ? '←' : '→'}}
                         </button>
                         <button
                             wire:click="increaseSize('{{ $id }}')"
-                            class="p-1 text-4lg">
+                            class=" text-4lg">
                             +
                         </button>
                         <button
                             wire:click="decreaseSize('{{ $id }}')"
-                            class="p-1 text-4sm">
+                            class="p-1 text-4lg">
                             -
                         </button>
-                        <div class="handle cursor-move  bg-black rounded-full p-1 shadow text-4xl">
-                            ⤯
+                        <div class="handle cursor-move bg-blac rounded-full p-1 text-4lg">
+                            ⤴
                         </div>
                     </div>
                 @endif
