@@ -303,10 +303,27 @@ Filament does provide a `persistToSession()` option for tables, but this does no
 I've provided a livewire event for you to utilize for this purpose.
 
 Each livewire component rendered through your layout manager is passed a value called `container_key` used to keep track of its data. 
-Each livewire component can additionally dispatch an event to let the `LayoutManager` class to update component specific data that can then be persisted to
-a database and reloaded across sessions, for example.
+Component specific data is passed via the `store` property.
 
-#### Updating the Store
+Each livewire component can dispatch an event to the `LayoutManager` class to update it's `store` which is saved alongside your layout data.
+
+### Getting the component key and store
+
+Be sure to define the `container_key` and `store` property in your widget or component class, either directly or via the mount property.
+```php
+/* 
+Provide the following as part of your child component (like a widget class), to get the id and your data (in store).
+*/
+public $container_key;
+public $store;
+
+public function mount($container_key, $store){
+    $this->container_key = $container_key;
+    $this->store = $store;
+}
+```
+
+### Updating the component's store
 Execute the following anywhere in your child-component (like a table widget), while replacing the `store: []` with actual data.
 ```php
 $this->dispatch('component-store-update',
@@ -314,32 +331,13 @@ $this->dispatch('component-store-update',
     store: []
 );
 ```
+(For example, I dispatch the above in my table widget where store is all the current table filters)
 
-Be sure to define the `container_key` property in your widget or component class, either directly or via the mount property.
-```php
-/* Include this property in your class. */
-public $container_key;
 
-/* 
-You can also assign it directly via the mount method. 
-Livewire allows you to skip this if you prefer and just declare the propery 
-*/
-public $container_key;
+### Using the store
+Your components `store` property is passed just like any livewire property on reloads of your layout.
 
-public function mount($container_key){
-    $this->container_key = $container_key;
-}
-```
-
-#### Loading the store
-Loading the store is up to you. I needed to load from my component specific store and update the pre-applied table filters. An example of that follows:
-```php
-public function mount() {
-    $this->tableFilters = $this->store['tableFilters'];
-}
-```
-Of course, you can access the `store` anywhere in your component as its passed in as a livewire property. Update your data wherever it needs it.
-#### Customizing
+### Customizing
 This `component-store-update` event method is present in `LayoutManager` meaning if you want to change it's behaviour, you are free to do so in your custom layout manager.
 
 How to create a custom layout manager is detail above in this README.
