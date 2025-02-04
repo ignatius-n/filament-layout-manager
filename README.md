@@ -104,7 +104,16 @@ class TestPage extends LayoutManagerPage
 }
 ```
 This passes your data `['company'=>'Apple']` to your widget in a `data` property. You can access that in your `mount()` function or via a direct property like any Livewire component.
-
+```php
+class CompaniesWidget extends BaseWidget
+{
+    public array $data;
+    public function mount($data){
+        $this->data = $data;
+    }
+//... other methods & properties
+}
+```
 
 ### Renaming Selection Options
 The names associated with your selected components can be changed by overriding the `getComponentSelectOptions` method in your custom page. Be sure to order the array you provided to match the order of the components you provided
