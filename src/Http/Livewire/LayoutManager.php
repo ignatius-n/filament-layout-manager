@@ -9,6 +9,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithHeaderActions;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -109,7 +110,7 @@ class LayoutManager extends Component implements HasActions, HasForms
         $this->container[$this->currentLayout][uniqid()] = [
             'cols' => 1,
             'type' => $this->settings['components'][$this->selectedComponent],
-            'event_id' => count($this->container) + 1,
+            'store' => [],
         ];
     }
 
@@ -196,6 +197,12 @@ class LayoutManager extends Component implements HasActions, HasForms
     protected function save(): void
     {
         session(['layout_manager' => $this->container]);
+    }
+
+    #[On('component-store-update')]
+    public function componentStoreUpdate($id, $store): void
+    {
+        $this->container[$this->currentLayout][$id]['store'] = $store;
     }
 
     protected function load(): void
