@@ -203,6 +203,9 @@ class LayoutManager extends Component implements HasActions, HasForms
     public function componentStoreUpdate($id, $store): void
     {
         $this->container[$this->currentLayout][$id]['store'] = $store;
+        if (! $this->editMode) {
+            $this->save();
+        }
     }
 
     protected function load(): void

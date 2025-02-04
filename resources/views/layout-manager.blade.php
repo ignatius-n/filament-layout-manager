@@ -77,8 +77,9 @@
                 @endif
                 <livewire:dynamic-component
                     :is="$component['type']['widget_class']"
-                    :data="$component['type']['data']"
+                    :data="$component['type']['data'] ?? []"
                     :container_key="$id"
+                    :store="$component['store'] ?? []"
                     :key="$id"
                 />
             </div>
