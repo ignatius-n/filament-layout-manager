@@ -34,7 +34,7 @@ php artisan vendor:publish --tag="filament-layout-manager-translations"
 ```
 
 ## Usage
-Filament Layout Manager requires a new custom page. You can create one as so
+Filament Layout Manager is easiest to use with a new page. You can create one as so
 
 ### 1. Generate a new page
 ```bash
@@ -103,6 +103,17 @@ class TestPage extends LayoutManagerPage
     }
 }
 ```
+This passes your data `['company'=>'Apple']` to your widget in a `data` property. You can access that in your `mount()` function or via a direct property like any Livewire component.
+```php
+class CompaniesWidget extends BaseWidget
+{
+    public array $data;
+    public function mount($data){
+        $this->data = $data;
+    }
+//... other methods & properties
+}
+```
 
 ### Renaming Selection Options
 The names associated with your selected components can be changed by overriding the `getComponentSelectOptions` method in your custom page. Be sure to order the array you provided to match the order of the components you provided
@@ -132,7 +143,7 @@ Each layout is mapped to a keybinding based on its number:
 * `command+2 | ctrl+2` => layout 2 
 * so forth...
 
-The default number of views can be changed by the `getLayoutCount()` function in your page class, or via the configuration file. 
+The default number of views can be changed by the `getLayoutCount()` function in your page class, or via the configuration file.
 
 ## Customization
 Your chosen livewire components are wrapped inside a custom livewire component class defined by this library which enables user manipulation.
@@ -288,6 +299,57 @@ or
 'wrap_in_filament_page' => true,
 ```
 You may need to override some filament css hooks to get the spacing right for what you need.
+
+## Child Component Data Stores
+You may want the child components (widgets, charts, generic components, etc.), to store additional information about themselves that can be reloaded along with a user's layout.
+
+#### Why is this useful?
+In my application, I wanted table widgets to persist the filters users had applied to them across sessions. It's the little things that make your users smile after all.
+
+Filament does provide a `persistToSession()` option for tables, but this does not work for multiple table widgets or across sessions.
+
+### Event Hook
+I've provided a livewire event for you to utilize for this purpose.
+
+Each livewire component rendered through your layout manager is passed a value called `container_key` used to keep track of its data. 
+Component specific data is passed via the `store` property.
+
+Each livewire component can dispatch an event to the `LayoutManager` class to update it's `store` which is saved alongside your layout data.
+
+### Getting the component key and store
+
+Be sure to define the `container_key` and `store` property in your widget or component class, either directly or via the mount property.
+```php
+/* 
+Provide the following as part of your child component (like a widget class), to get the id and your data (in store).
+*/
+public $container_key;
+public $store;
+
+public function mount($container_key, $store){
+    $this->container_key = $container_key;
+    $this->store = $store;
+}
+```
+
+### Updating the component's store
+Execute the following anywhere in your child-component (like a table widget), while replacing the `store: []` with actual data.
+```php
+$this->dispatch('component-store-update',
+    id: $this->container_key,
+    store: []
+);
+```
+(For example, I dispatch the above in my table widget where store is all the current table filters)
+
+
+### Using the store
+Your components `store` property is passed just like any livewire property on reloads of your layout.
+
+### Customizing
+This `component-store-update` event method is present in `LayoutManager` meaning if you want to change it's behaviour, you are free to do so in your custom layout manager.
+
+How to create a custom layout manager is detail above in this README.
 
 [//]: # (This is the contents of the published config file:)
 

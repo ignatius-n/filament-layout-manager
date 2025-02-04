@@ -75,11 +75,13 @@
                         </div>
                     </div>
                 @endif
-                @livewire(
-                    $component['type']['widget_class'],
-                    $component['type']['data'],
-                    key("{$component['type']['widget_class']}-{$id}"),
-                )
+                <livewire:dynamic-component
+                    :is="$component['type']['widget_class']"
+                    :data="$component['type']['data'] ?? []"
+                    :container_key="$id"
+                    :store="$component['store'] ?? []"
+                    :key="$id"
+                />
             </div>
         @endforeach
     </div>
