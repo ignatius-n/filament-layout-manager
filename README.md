@@ -6,7 +6,7 @@
 
 ### Allow users to create & customize their own FilamentPHP pages composed of Livewire components
 ### Demo
-![demo.gif](demo.gif)
+![demo.gif](https://raw.githubusercontent.com/asosick/filament-layout-manager/main/demo.gif)
 
 ## Table of Contents
 
