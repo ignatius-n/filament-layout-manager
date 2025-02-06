@@ -167,7 +167,7 @@ class LayoutManager extends Component implements HasActions, HasForms
      */
     public function updateLayout(array $orderedIds): void
     {
-        if (! $this->editMode || ! isset($orderedIds)) {
+        if (! $this->editMode) {
             return;
         }
         $sortedData = [];
