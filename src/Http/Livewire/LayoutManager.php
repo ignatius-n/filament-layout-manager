@@ -30,7 +30,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     public array $settings = [];
 
-    public $selectedComponent;
+    public int $selectedComponent;
 
     public int $layoutCount;
 
@@ -101,7 +101,7 @@ class LayoutManager extends Component implements HasActions, HasForms
     /**
      * Toggles the size of a component to the max or min columns allowed.
      */
-    public function toggleSize($id): void
+    public function toggleSize(string $id): void
     {
         if (! $this->editMode) {
             return;
@@ -113,7 +113,7 @@ class LayoutManager extends Component implements HasActions, HasForms
     /**
      * Increased the size of a component by one.
      */
-    public function increaseSize($id): void
+    public function increaseSize(string $id): void
     {
         if (! $this->editMode) {
             return;
