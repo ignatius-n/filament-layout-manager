@@ -23,3 +23,4 @@ All notable changes to `filament-layout-manager` will be documented in this file
 - Fixed layout page number appearing when layout count is 1
 - Fixed issued where components span beyond allowed columns after a config change
 - Adding missing types to method and functions
+- Included additional comments to LayoutManager for clarity
