@@ -10,7 +10,10 @@
         </h1>
         <div class="flex justify-end space-x-2">
             @php
-                $usedLayouts = collect($this->container)->filter(fn ($component) => count($component) !==0)->count();
+                $usedLayouts = min(
+                    collect($this->container)->filter(fn ($component) => count($component) !==0)->count(),
+                    $this->layoutCount
+                );
             @endphp
             @if($editMode || $usedLayouts > 1)
                 @for($i = 0; $i<$layoutCount; $i++)
