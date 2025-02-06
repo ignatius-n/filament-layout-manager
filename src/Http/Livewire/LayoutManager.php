@@ -55,13 +55,12 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Ensures that if the grid row count changes, the size of components is bounded
-     * @return void
      */
     protected function enforceRowCounts(): void
     {
-        foreach($this->container as &$layout){
-            foreach($layout as $_ => &$component){
-                if(! $component){
+        foreach ($this->container as &$layout) {
+            foreach ($layout as $_ => &$component) {
+                if (! $component) {
                     continue;
                 }
                 $component['cols'] = min($this->columns, $component['cols']);
@@ -72,7 +71,6 @@ class LayoutManager extends Component implements HasActions, HasForms
     /**
      * Toggles between editing mode
      * Will refocus to a layout which has components on change.
-     * @return void
      */
     public function toggleEditMode(): void
     {
@@ -82,7 +80,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * If the current layout is empty, will move active layout index to a layout with components.
-     * @return void
      */
     private function refocusToLayoutInUse(): void
     {
@@ -103,8 +100,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Toggles the size of a component to the max or min columns allowed.
-     * @param $id
-     * @return void
      */
     public function toggleSize($id): void
     {
@@ -117,8 +112,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Increased the size of a component by one.
-     * @param $id
-     * @return void
      */
     public function increaseSize($id): void
     {
@@ -131,8 +124,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Decreased the size of a component by one.
-     * @param string $id
-     * @return void
      */
     public function decreaseSize(string $id): void
     {
@@ -145,7 +136,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Creates a new component on the active layout.
-     * @return void
      */
     public function addComponent(): void
     {
@@ -161,8 +151,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Removes the selected component from the active layout
-     * @param string $componentId
-     * @return void
      */
     public function removeComponent(string $componentId): void
     {
@@ -174,8 +162,8 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Updates the order of the components on a specific layout. This happens after a user changes the order via dragging.
-     * @param array<string> $orderedIds
-     * @return void
+     *
+     * @param  array<string>  $orderedIds
      */
     public function updateLayout(array $orderedIds): void
     {
@@ -195,7 +183,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Returns the editAction (a.k.a the 'lock'/'unlock' button).
-     * @return Action
      */
     public function editAction(): Action
     {
@@ -209,7 +196,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Returns the add action.
-     * @return Action
      */
     public function addAction(): Action
     {
@@ -223,7 +209,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Returns the save action.
-     * @return Action
      */
     public function saveAction(): Action
     {
@@ -237,6 +222,7 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Returns an array of user defined header actions.
+     *
      * @return array<Action>
      */
     public function getHeaderActions(): array
@@ -246,7 +232,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Returns one button of a list of buttons used to toggle between different numbered views.
-     * @return Action
      */
     public function selectLayoutAction(): Action
     {
@@ -262,7 +247,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Wrapper method of the save() function used to check the user is in edit mode, and issue a notification when saved.
-     * @return void
      */
     public function saveLayout(): void
     {
@@ -275,7 +259,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      *  Method to save the `container` (a.k.a all the data across all views).
-     *  @return void
      */
     protected function save(): void
     {
@@ -285,9 +268,6 @@ class LayoutManager extends Component implements HasActions, HasForms
     /**
      * A method executed when a child component issues the `component-store-update` event.
      * Updates a component's store (a place to store component specific data).
-     * @param string $id
-     * @param array $store
-     * @return void
      */
     #[On('component-store-update')]
     public function componentStoreUpdate(string $id, array $store): void
@@ -300,7 +280,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Loads all information from a storage location.
-     * @return void
      */
     protected function load(): void
     {
@@ -309,7 +288,6 @@ class LayoutManager extends Component implements HasActions, HasForms
 
     /**
      * Issues a notification to indicate all layouts have been saved.
-     * @return void
      */
     protected function saveNotification(): void
     {
