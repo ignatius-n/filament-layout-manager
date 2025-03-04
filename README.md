@@ -75,7 +75,7 @@ php artisan make:filament-page TestPage
 
 ### 2. Extend your page from `LayoutManagerPage`
 
-You custom page needs to extend from `use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;`
+Your custom page needs to extend from `use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;`
 
 ```php
 use Asosick\FilamentLayoutManager\Pages\LayoutManagerPage;
@@ -263,7 +263,7 @@ class CustomLayoutManager extends LayoutManager
 ```
 
 ### Adding Header Actions
-Header actions can be add to the right of the 'Lock' button by overriding the `getHeaderActions()` method in your custom LayoutManager (*NOT your custom page*).
+Header actions can be added to the right of the 'Lock' button by overriding the `getHeaderActions()` method in your custom LayoutManager (*NOT your custom page*).
 
 Example:
 ```php
@@ -370,7 +370,7 @@ Your components `store` property is passed just like any livewire property on re
 ### Customizing
 This `component-store-update` event method is present in `LayoutManager` meaning if you want to change it's behaviour, you are free to do so in your custom layout manager.
 
-How to create a custom layout manager is detail above in this README.
+How to create a custom layout manager is detailed above in this README.
 
 [//]: # (This is the contents of the published config file:)
 
