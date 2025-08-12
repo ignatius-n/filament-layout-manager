@@ -8,7 +8,7 @@ use Livewire\Component;
 
 abstract class LayoutManagerPage extends Page
 {
-    protected static string $view = 'filament-layout-manager::layout-manager-page';
+    protected string $view = 'filament-layout-manager::layout-manager-page';
 
     protected array $settings = [];
 
