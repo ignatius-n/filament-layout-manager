@@ -1,7 +1,6 @@
 # Filament Layout Manager
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asosick/filament-layout-manager/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asosick/filament-layout-manager/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/asosick/filament-layout-manager.svg?style=flat-square)](https://packagist.org/packages/asosick/filament-layout-manager)
 
 ### Allow users to create & customize their own FilamentPHP pages composed of Livewire components
