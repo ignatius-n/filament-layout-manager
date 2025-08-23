@@ -43,8 +43,14 @@
 
 You can install the package via composer:
 
+#### Filament V4
 ```bash
-composer require asosick/filament-layout-manager
+composer require asosick/filament-layout-manager:^2.0
+```
+
+#### Filament V3
+```bash
+composer require asosick/filament-layout-manager:^1.0
 ```
 
 You can publish the config file with:
