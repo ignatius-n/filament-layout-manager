@@ -1,7 +1,7 @@
 {{-- resources/views/livewire/dynamic-grid.blade.php --}}
 
 <div x-data="{ sortable: null }"
-{{--  Causes some styling issues due to order of loading? x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-layout-manager-styles', package:'asosick/filament-layout-manager'))]"--}}
+     x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-layout-manager-styles', package:'asosick/filament-layout-manager'))]"
      x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('filament-layout-manager-scripts', package:'asosick/filament-layout-manager'))]"
     >
     <div class="flex justify-between w-full gap-y-8 py-8">
@@ -45,35 +45,35 @@
         </div>
     </div>
 
-    <div class="sm:grid block md:grid-cols-{{$columns}} gap-4 !important" x-ref="grid">
+    <div class="layout-manager-grid sm:grid block md:grid-cols-{{$columns}} gap-4" x-ref="grid">
         @foreach($container[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
-                 class="p-1"
+                 class="layout-manager-widget p-1"
                  style="grid-column: span {{ $component['cols'] }} / span {{ $component['cols'] }}">
 
                 @if($editMode)
-                    <div class="flex gap-1 px-2 py-1">
+                    <div class="layout-manager-edit-controls flex gap-1 px-2 py-1 mb-2">
                         <button wire:click="removeComponent('{{ $id }}')"
-                            class="text-4lg">
-                            ⅹ
+                            class="text-lg font-bold">
+                            ×
                         </button>
                         <button
                             wire:click="toggleSize('{{ $id }}')"
-                            class="p-1 text-4lg">
+                            class="p-1 text-lg">
                             {{$component['cols'] === $columns ? '←' : '→'}}
                         </button>
                         <button
                             wire:click="increaseSize('{{ $id }}')"
-                            class=" text-4lg">
+                            class="text-lg">
                             +
                         </button>
                         <button
                             wire:click="decreaseSize('{{ $id }}')"
-                            class="p-1 text-4lg">
+                            class="text-lg">
                             -
                         </button>
-                        <div class="handle cursor-move bg-blac rounded-full p-1 text-4lg">
+                        <div class="handle cursor-move rounded-full p-1 text-lg">
                             ⤴
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     :data="$component['type']['data'] ?? []"
                     :container_key="$id"
                     :store="$component['store'] ?? []"
-                    :key="$id"
+                    :key="$id.'-'.$component['cols']"
                 />
             </div>
         @endforeach
