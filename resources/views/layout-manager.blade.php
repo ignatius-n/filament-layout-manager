@@ -83,7 +83,7 @@
                     :data="$component['type']['data'] ?? []"
                     :container_key="$id"
                     :store="$component['store'] ?? []"
-                    :key="$id"
+                    :key="$id.'-'.$component['cols']"
                 />
             </div>
         @endforeach
